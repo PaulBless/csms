@@ -18,18 +18,18 @@
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="<?php  echo (!empty($_SESSION['user_photo'])) ? 'images/'.$_SESSION['user_photo'] : 'images/profile.jpg'; ?>" class="user-image" alt="User Image">
-            <span class="hidden-xs"><?php if(!empty($_SESSION['user_fullname'])) echo $_SESSION['user_fullname']; else echo "Full name"; ?></span>
+            <img src="<?php  echo (!empty($user['photo'])) ? 'images/'.$user['photo'] : 'images/profile.jpg'; ?>" class="user-image" alt="User Image">
+            <span class="hidden-xs"><?php if(!empty($user['firstname'])) echo $user['firstname'] .' '. $user['lastname']; else echo "Full name"; ?></span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="<?php echo (!empty($_SESSION['user_photo'])) ? 'images/'.$_SESSION['user_photo'] : 'images/profile.jpg'; ?>" class="img-circle" alt="User Image">
+              <img src="<?php echo (!empty($user['photo'])) ? 'images/'.$user['photo'] : 'images/profile.jpg'; ?>" class="img-circle" alt="User Image">
 
               <p>
                 <?php //echo $user['firstname'].' '.$user['lastname']; ?>
-                <?php if(!empty($_SESSION['user_fullname'])) echo $_SESSION['user_fullname']; else echo "Full name"; ?>
-                <small>Registered on <?php if(!empty($_SESSION['user_regdate'])) echo date('M, Y', strtotime($_SESSION['user_regdate']));  else echo date('M, Y', strtotime('2021-03-03'));?></small>
+                <?php if(!empty($user['firstname'])) echo $user['firstname'].' '.$user['lastname']; else echo "Full name"; ?>
+                <small>Registered on <?php if(!empty($user['created_on'])) echo date('M, Y', strtotime($user['created_on']));  else echo date('M, Y', strtotime('2021-03-03'));?></small>
               </p>
             </li>
             <li class="user-footer">

@@ -1,5 +1,6 @@
 
 <?php include 'includes/conn.php'; ?>
+<?php include 'includes/session.php'; ?>
 <?php include 'includes/appsettings.php'; ?>
 <?php include 'includes/header.php'; ?>
 

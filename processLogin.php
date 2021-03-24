@@ -3,8 +3,8 @@
 	include 'includes/conn.php';
 
 	if(isset($_POST['login'])){
-		$userid = $_POST['userid'];
-		$password = $_POST['password'];
+		$userid = trim(htmlspecialchars($_POST['userid'])) ;
+		$password = trim(htmlspecialchars($_POST['password'])) ;
 
 		$sql = "SELECT * FROM `users` WHERE `username` = '$userid'";
 		$query = $conn->query($sql);
@@ -15,7 +15,7 @@
 		else{
 			// username exists/correct, now check the password
 			$row = $query->fetch_assoc();
-			if(password_verify($password, $row['password'])){
+			if(password_verify($password, $row['password'])){	// correct password
 				$_SESSION['user'] = $row['uid'];
 				$_SESSION['lastname'] = $row['lastname'];
 				$_SESSION['firstname'] = $row['firstname'];
@@ -27,18 +27,12 @@
 				$_SESSION['user_type'] = $row['user_type'];
 				$_SESSION['user_status'] = $row['status'];
 				$_SESSION['user_regdate'] = $row['created_on'];
-			}
-			else{
+		
+			
+			}else{
 				$_SESSION['error'] = 'Incorrect password, please check..'; // wrong password
-			}
-
-			// valid password, check user type
-            if($row['user_type'] == "Admin") // validate user role
-            {
-                header('location: admin/home.php');
-            }elseif ($row['user_type'] == 'User'){ 
-				header('location: homepage.php');
-			}
+				}
+			
 		}
 		
 	}

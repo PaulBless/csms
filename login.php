@@ -16,6 +16,7 @@
 			$row = $query->fetch_assoc();
 			if(password_verify($password, $row['password'])){
 				$_SESSION['user'] = $row['uid'];
+				
 			}
 			else{
 				$_SESSION['error'] = 'Incorrect password';

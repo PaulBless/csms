@@ -35,7 +35,7 @@
 		if($run->num_rows == 0)
 		{
 		  //query to save record
-		  $sql = "INSERT INTO `users` (`firstname`, `lastname`, `mobileno`, `username`, `password`, `user_type`, `status`, `photo`, `created_on`) VALUES ('$firstname', '$lastname', '$mobileno', '$username', '$password_encrypt', '$user_type', '$new_status', '$filename', 'CURRENT_TIMESTAMP')";
+		  $sql = "INSERT INTO `users` (`firstname`, `lastname`, `mobileno`, `username`, `password`, `user_type`, `status`, `photo`, `created_on`) VALUES ('$firstname', '$lastname', '$mobileno', '$username', '$password_encrypt', '$user_type', '$new_status', '$filename', CURRENT_TIMESTAMP)";
 		  if($conn->query($sql)){
 			$msg = "New User added with the following login details:   Username: '$username' Password: '$random_pass'";
 			$_SESSION['success'] = $msg;

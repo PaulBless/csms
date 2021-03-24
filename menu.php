@@ -3,20 +3,12 @@
   <section class="sidebar">
     <!-- Sidebar user panel -->
     <div class="user-panel">
-    <?php 
-      // require_once('includes/conn.php');
-      // $sql = "SELECT * FROM `users` WHERE `uid`='".$_SESSION['user']."'";
-      // $q = $conn->query($sql);
-      // $user = $q ->fetch_assoc();
-    ?>
 
       <div class="pull-left image">
-        <!-- <img src="<?php  //echo (!empty($user['photo'])) ? 'images/'.$user['photo'] : 'images/profile.jpg'; ?>" class="img-circle" alt="User Image"> -->
-        <img src="<?php  if(!empty($_SESSION['user_photo'])) echo 'images/'.$_SESSION['user_photo']; else echo 'images/profile.jpg'; ?>" class="img-circle" alt="User Image">
+        <img src="<?php  if(!empty($user['photo'])) echo 'images/'.$user['photo']; else echo 'images/profile.jpg'; ?>" class="img-circle" alt="User Image" height="60px">
       </div>
       <div class="pull-left info">
-        <!-- <p><?php  //echo $user['firstname'].' '.$user['lastname']; ?></p> -->
-        <p><?php  if(!empty($_SESSION['user_fullname']))  echo $_SESSION['user_fullname'];  else echo "Full name";?></p>
+        <p><?php  if(!empty($user['firstname']))  echo $user['firstname']. ' '.$user['lastname'];  else echo "Full name";?></p>
         <a><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
@@ -24,10 +16,10 @@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">REPORTS</li>
         <li class="" style="font-weight: bold;"><a href="homepage.php"><i class="fa fa-dashboard"></i> <span>DASHBOARD</span></a></li>
-        <li class="" style="font-weight: bold;"><a href="myenquiry.php"><i class="fa fa-th"></i> <span>MY SUBMITTED ENQUIRIES</span></a></li>
+        <li class="" style="font-weight: bold;"><a href="myenquiry.php"><i class="fa fa-th"></i> <span>MY SUBMITTED FORMS</span></a></li>
         
-        <li class="header">SERVICE REQUEST </li>
-        <li class="" style="font-weight: bold;"><a href="lodgeinquiry.php"><i class="fa fa-black-tie"></i> <span>LODGE ENQUIRY</span></a></li> 
+        <li class="header">ACTION </li>
+        <li class="" style="font-weight: bold;"><a href="lodgeinquiry.php"><i class="fa fa-black-tie"></i> <span>NEW SERVICE REQUEST </span></a></li> 
         <li class="" style="font-weight: bold;"><a href="clients.php"><i class="fa fa-users"></i> <span>CLIENTS</span></a></li>
 
       <li class="header">ACCOUNT SETTINGS</li>

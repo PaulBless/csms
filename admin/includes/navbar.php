@@ -15,20 +15,21 @@
 
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
+      
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="<?php echo (!empty($_SESSION['user_photo'])) ? '../images/'.$_SESSION['user_photo'] : '../images/profile.jpg'; ?>" class="user-image" alt="User Image">
-            <span class="hidden-xs"><?php echo (!empty($_SESSION['user_fullname'])) ? $_SESSION['user_fullname'] : "Admin"; ?></span>
+            <img src="<?php echo (!empty($user['photo'])) ? '../images/'.$user['photo'] : '../images/profile.jpg'; ?>" class="user-image" alt="User Image">
+            <span class="hidden-xs"><?php echo (!empty($user['firstname']) ." ". !empty($user['lastname'])) ? $user['firstname']. " ". $user['lastname'] : "Admin"; ?></span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="<?php echo (!empty($_SESSION['user_photo'])) ? '../images/'.$_SESSION['user_photo'] : '../images/profile.jpg'; ?>" class="img-circle" alt="User Image">
+              <img src="<?php echo (!empty($user['photo'])) ? '../images/'.$user['photo'] : '../images/profile.jpg'; ?>" class="img-circle" alt="User Image">
 
               <p>
-                <?php echo (!empty($_SESSION['user_fullname'])) ? $_SESSION['user_fullname'] : "No Name"; ?>
-                <small>Registered on <?php if(!empty($_SESSION['user_regdate'])) echo date('M, Y', strtotime($_SESSION['user_regdate'])); else echo date('M, Y', strtotime('2021-03-03')); ?></small>
+                <?php echo (!empty($user['firstname']) ." " . !empty($user['lastname'])) ? $user['firstname']. " ". $user['lastname'] : "No Name"; ?>
+                <small>Registered on <?php if(!empty($user['created_on'])) echo date('M, Y', strtotime($user['created_on'])); else echo date('M, Y', strtotime('2021-03-03')); ?></small>
               </p>
             </li>
             <li class="user-footer">
@@ -36,7 +37,7 @@
                 <a href="#profile" data-toggle="modal" class="btn btn-default btn-flat" id="admin_profile">Update</a>
               </div>
               <div class="pull-right">
-                <a href="logout.php" class="btn btn-danger btn-flat">Sign out</a>
+                <a href="logout.php" class="btn btn-danger btn-flat">Logout</a>
               </div>
             </li>
           </ul>

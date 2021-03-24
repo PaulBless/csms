@@ -3,13 +3,14 @@
 
 include 'includes/conn.php'; 
 include 'includes/header.php'; 
+include 'includes/session.php'; 
 
 ?>
 
 <?php 
-  // if(empty($_SESSION['user'])){
-  //  header('location: index.php');
-  //  } 
+  if(empty($_SESSION['user'])){
+   header('location: index.php');
+   } 
 ?>
 
 <?php
@@ -19,7 +20,8 @@ if(isset($_SESSION['user']))
     $userid = $_SESSION['user'];
 
 // process form data
-  if(isset($_POST['save_enquiry']))
+
+if(isset($_POST['save_enquiryy']))
   {
     session_start();
     require_once('includes/conn.php');
@@ -43,13 +45,13 @@ if(isset($_SESSION['user']))
       // now save enquiry details
       $sql = "INSERT INTO `enquiries` (`et_id`, `dept_id`, `client_id`, `user_id`, `reason`, `created_on`) VALUES ('$enquiry_type', '$dept_id', '$client_id', '$userid', '$enquiry_detail', 'CURRENT_TIMESTAMP')";
       if($conn->query($sql)){
-        $_SESSION['success'] = 'Enquiry added successfully';
+        $_SESSION['success'] = 'Client request added successfully';
       }
       else{
         $_SESSION['error'] = $conn->error;
       }
      // show success message
-      $_SESSION['success'] = 'Enquiry added successfully';
+      $_SESSION['success'] = 'Service request added successfully';
 
     }else{
       $_SESSION['error'] = $conn->error;
@@ -71,7 +73,7 @@ if(isset($_SESSION['user']))
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Lodge An Enquiry
+        New Service Request
       </h1>
         <ol class="breadcrumb">
             <li><a href="homepage.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -105,7 +107,7 @@ if(isset($_SESSION['user']))
       ?>
       <!-- Small boxes (Stat box) -->
       <div class="row">
-         <form class="form-horizontal" id="add_enquiry" action="" method="POST">
+         <form class="form-horizontal" id="add_enquiry" action="add-service.php" method="POST">
             <div class="col-lg-12 " >
            
                 <div class="col-lg-6 " >
@@ -115,7 +117,7 @@ if(isset($_SESSION['user']))
                     <div class="form-group">
                         <label for="firstname" class="col-sm-3 control-label">Firstname <span class="text-danger">*</span></label>
                         <div class="col-sm-7">
-                        <input type="text" class="form-control" id="firstname" name="firstname" required>
+                        <input type="text" class="form-control" id="firstname" name="firstname" required placeholder="Joe">
                         <!-- <span>enter firstname of client</span> -->
                         </div>
                     </div>
@@ -123,7 +125,7 @@ if(isset($_SESSION['user']))
                     <div class="form-group">
                         <label for="lastname" class="col-sm-3 control-label">Lastname <span class="text-danger">*</span></label>
                         <div class="col-sm-7">
-                        <input type="text" class="form-control" id="lastname" name="lastname" required>
+                        <input type="text" class="form-control" id="lastname" name="lastname" required placeholder="Smith">
                         <!-- <span>Enter lasstname of client</span> -->
                         </div>
                     </div>
@@ -131,7 +133,7 @@ if(isset($_SESSION['user']))
                     <div class="form-group">
                         <label for="mobile" class="col-sm-3 control-label">Mobile No.</label>
                         <div class="col-sm-7">
-                        <input type="tel" class="form-control" pattern="[0][0-9]{9}" maxlength="10" id="mobile" name="mobileno"><span>(Optional, if any)</span>
+                        <input placeholder="0201234567" type="tel" class="form-control" pattern="[0][0-9]{9}" maxlength="10" id="mobile" name="mobileno"><span>(Optional, if any)</span>
                         </div>
                     </div>
 
@@ -159,7 +161,7 @@ if(isset($_SESSION['user']))
                 </div>
 
                 <div class="col-lg-6">
-                    <h4 class="text-center text-warning " style="margin-bottom: 15px;">Enquiry Info Details</h4>
+                    <h4 class="text-center text-warning " style="margin-bottom: 15px;">Service Info Details</h4>
 
                     <div class="form-group">
                         <label for="enquiry_type" class="col-sm-3 control-label">Service Type <span class="text-danger">*</span></label>
@@ -184,16 +186,16 @@ if(isset($_SESSION['user']))
                     </div>
                     
                     <div class="form-group">
-                        <label for="edit_lastname" class="col-sm-3 control-label">Reason for Visit<span class="text-danger">*</span></label>
+                        <label for="edit_lastname" class="col-sm-3 control-label">Service Request Details <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                          <textarea name="enq_reason" id="enq_reason" class="form-control" cols="9" rows="2" required></textarea>
+                          <textarea name="enq_reason" id="enq_reason" class="form-control" cols="9" rows="2" required placeholder="Apply for business operating permit"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="department" class="col-sm-3 control-label">Department <span class="text-danger">*</span></label>
                         <div class="col-sm-6">
-                            <select name="department_id" id="department" class="col-sm-9 department form-control" onChange="getUnit(this.options[this.selectedIndex].value,'subcategory');" required>
+                            <select name="department_id" id="department" class="col-sm-9 department form-control" onChange="" required>
                             <?php 
                                 $q =  "SELECT * FROM `departments` ORDER BY `dept_name` ASC";
                                 $get = ($conn->query($q) );
@@ -228,7 +230,7 @@ if(isset($_SESSION['user']))
                                 {
                                  echo '<option value="'. $data['scid'].'">' .$data['sub_dept_name'].'</option>';      
                                 }
-                              }else{ echo '<option>N/A</option>';}
+                              }else{ echo '<option value="N/A">N/A</option>';}
                             ?>
                           </select>
                         <span class="text-danger">(if any)</span>
@@ -236,7 +238,7 @@ if(isset($_SESSION['user']))
                     </div>                  
                 </div>
 
-                <div class="form-group">
+                <div class="form-group hidden">
                         <label for="test-dept" class="col-sm-3 control-label">Country <span class="text-danger">*</span></label>
                         <div class="col-sm-6">
                             <select name="country" id="country" class="col-sm-9 country form-control" required>
@@ -249,7 +251,7 @@ if(isset($_SESSION['user']))
                         </div>
                     </div> 
 
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <label for="state" class="col-sm-3 control-label">State <span class="text-danger">*</span></label>
                         <div class="col-sm-6">
                             <select name="state" id="state" class="col-sm-9 state form-control"  required> 
@@ -282,6 +284,23 @@ if(isset($_SESSION['user']))
 <!-- ./wrapper -->
 
 <?php include 'includes/scripts.php'; ?>
+<script>
+  $(document).ready(function(){
+    // $("#department").change(function(){
+    //     var selectedDept = $(".department option:selected").val();
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "fetch_units.php",
+    //         data: { department : selectedDept } 
+    //     })
+    //     .done(function(data){
+    //         $("#subcategory").html(data);
+    //     });
+    // });
+
+  });
+
+</script>
 
 <script>
   $(document).ready(function(){
@@ -290,25 +309,7 @@ if(isset($_SESSION['user']))
       
       
     });
-
-    // department value change
-    // $('#department').change(function(){
-    //   var selectedDept = $(".department option:selected").val();
-    //   $.ajax({
-    //       type: "POST",
-    //       url: "get-subunits.php",
-    //       data: { department : selectedDept }
-    //     }).done(function(data){
-    //       $('#subcategory').html(data);
-    //     });
-    //   });
-
-  });
-</script>
-
-
-<script>
-$(document).ready(function(){
+    
     $("select.country").change(function(){
         var selectedCountry = $(".country option:selected").val();
         $.ajax({
@@ -319,32 +320,19 @@ $(document).ready(function(){
             $("#state").html(data);
         });
     });
-});
+
+  });
 </script>
 
 
-<script>
-  // $(document).ready(function(){
-  //   $("#department").change(function(){
-  //       var selectedDept = $(".department option:selected").val();
-  //       $.ajax({
-  //           type: "POST",
-  //           url: "get-subunits.php",
-  //           data: { department : selectedDept } 
-  //       }).done(function(data){
-  //           $("#subcategory").html(data);
-  //       });
-  //   });
-  // });
 
-</script>
-
-<script>
+<script type="text/javascript">
   function getUnit(val) {
+    var department_id = val.options[val.selectedIndex].value;
     $.ajax({
       type: "POST",
-      url: "get-subunits.php",
-      data:'dept_id='+val,
+      url: "fetch-subunits.php",
+      data: 'dept_id='+val,
       beforeSend: function() {
         $("#subcategory").addClass("loader");
       },
@@ -353,6 +341,25 @@ $(document).ready(function(){
       }
     });
   }
+
+  function showCategory(sel) {
+      var dept_id = sel.options[sel.selectedIndex].value;
+      $("#subcategory").html("");
+        if (dept_id.length > 0) {
+            $.ajax({
+              type: "POST",
+              url: "fetch_subunits.php",
+              data: "dept_id=" + dept_id,
+              cache: false,
+              beforeSend: function() {
+                $('#subcategory').html('<img src="images/loader.gif" alt="" width="24" height="24">');
+             },
+             success: function(html) {
+              $("#subcategory").html(html);
+            }
+            });
+          }
+    }
 </script>
 
 </body>

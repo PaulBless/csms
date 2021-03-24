@@ -18,7 +18,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
-              <button type="submit" class="btn btn-danger btn-flat" name="logout"><i class="fa fa-check"></i> Yes</button>
+              <button type="submit" class="btn btn-danger btn-flat" name="logout"> Yes, Logout</button>
               </form>
             </div>
         </div>

@@ -71,9 +71,9 @@
         bottom: 0;
         z-index: 99999;
         overflow: hidden;
-        opacity: 0.7;
-        /* background: #efefef82; */
-        background: #123;
+        opacity: 0.6;
+        background: #f1f1f1;
+        /* background: #123; */
       }
 
       #preloader:before {
@@ -81,10 +81,10 @@
         position: fixed;
         top: calc(50% - 30px);
         left: calc(50% - 30px);
-        border: 6px solid #123;
-        /* border: 6px solid #1977cc; */
-        border-top-color: #f1f1f1;
-        /* border-top-color: #d1e6f9; */
+        /* border: 6px solid #123; */
+        border: 6px solid #1977cc;
+        /* border-top-color: #f1f1f1; */
+        border-top-color: #d1e6f9;
         border-radius: 50%;
         width: 60px;
         height: 60px;
@@ -108,5 +108,6 @@
           transform: rotate(360deg);
         }
       }
+
   	</style>
 </head>
