@@ -23,10 +23,9 @@
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition login-page">
 <div class="login-box" >
-  	<div class="login-logo" style="margin-bottom: 6px;">
+  	<div class="login-logo" style="margin-bottom: 3px;">
 		  <div class="row">
 			  <div class="col-lg-12">
-				<!-- <img src="images/uwada.jpg" height="75" width="75" alt="" style="border-radius: 20%;"><br> -->
 				<img src="<?php echo (!empty($app['logo'])) ? '../images/'.$app['logo'] : './images/jecmas.png'; ?>" height="65" width="65" alt="" style="border-radius: 50%; "><br>
 				 	<b class="text-uppercase text-success" style="font-size: 20px;"><?php echo (!empty($app['name'])) ? $app['name'] : 'jecmas technologies, ghana'; ?> </b>
 			  		<p style="font-size: 18px; font-weight: bold">Client Management System - Login</p>
@@ -61,25 +60,31 @@
 	  <div class="modal fade" id="forgetpwd">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Reset Your Password</b></h4>
             </div>
             <div class="modal-body">
               <div class="text-center">
-                
-                <form class="form-horizontal" method="POST" action="resetpassword.php">
-                    <div class="row">
 
-                    </div>
+                <form class="form-horizontal" method="POST" action="resetpassword.php">
+		
+					<div class="form-group">
+                  	<label for="firstname" class="col-sm-5 control-label">Enter username or password</label>
+                  	<div class="col-sm-4">
+                    	<input type="text" class="form-control" id="mobile_username" name="mobile_username" placeholder="Username Or Mobile No" required>
+                  	</div>
+					  <button type="submit" class="col-sm-2 btn btn-primary" name="reset"> Submit </button>
+                	</div>
+         	</form>
+       
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
-              <button type="submit" class="btn btn-danger btn-flat" name="reset"><i class="fa fa-check"></i> Submit</button>
-              </form>
-            </div>
+				<div class="modal-footer hidden">
+				<button type="button" class="btn btn-default btn-flat pull-right" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
+				</div>
         </div>
     </div>
 </div>
@@ -88,11 +93,19 @@
   	<?php
   		if(isset($_SESSION['error'])){
   			echo "
-  				<div class='callout callout-danger text-center mt20'>
+  				<div class='callout callout-danger text-center mt20' style='animation-name: example; animation-duration: 5s; animation-delay: 10s; animation-iteration-count: 2; animation-timing-function: ease-in;'>
 			  		<p>".$_SESSION['error']."</p> 
 			  	</div>
   			";
   			unset($_SESSION['error']);
+  		}	
+		if(isset($_SESSION['success'])){
+  			echo "
+  				<div class='callout callout-warning text-center mt20'>
+			  		<p>".$_SESSION['success']."</p> 
+			  	</div>
+  			";
+  			unset($_SESSION['success']);
   		}
   	?>
 </div>

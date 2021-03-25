@@ -1,3 +1,4 @@
+<?php include 'includes/session.php'; ?>
 <?php include 'includes/conn.php'; ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -50,16 +51,18 @@
               <!-- <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Add New Client</a> -->
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
-                  <th>Lastname</th>
-                  <th>Firstname</th>
+                  <th>No</th>
+                  <th>Full Name</th>
                   <th>Mobile No</th>
                   <th>Location</th>
+                  <th>Date Created</th>
                   <th>Action</th>
                 </thead>
                 <tbody>
                   <?php
+                   $cnt = 1;
                     $sql = "SELECT * FROM `clients`";
                     $query = $conn->query($sql);
                     if(!empty($query)){
@@ -68,19 +71,20 @@
                          $get = mysqli_fetch_assoc($fetch);
                         echo "
                         <tr>
-                        <td>".$row['lastname']."</td>
-                        <td>".$row['firstname']."</td>
+                        <td>".$cnt."</td>
+                        <td>".$row['firstname'].' '.$row['lastname']."</td>
                         <td>".$row['mobileno']." </td>
-                        //<td>".$row['location_id']."</td>
-                        <td>".$row['loc_name']."</td>
+                        <td>".$get['loc_name']."</td>
+                        <td>".$row['created_on']."</td>
                           <td>
-                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['cid']."'><i class='fa fa-edit'></i> Edit</button>
                             <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['cid']."'><i class='fa fa-trash'></i> Delete</button>
                           </td>
                         </tr>
                       ";
-                    }
-                  }
+                      
+                      $cnt=$cnt+1;
+                    } 
+                  } 
                   ?>
                 </tbody>
               </table>
@@ -92,51 +96,43 @@
   </div>
 
 <!-- </div> -->
+<!-- delete modal  -->
+<div class="modal fade" id="delete-client">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          	<div class="modal-header" style="color: #3c8dbc">
 
-  <?php //include 'includes/user_modal.php'; ?>
+            	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              		<span aria-hidden="true">&times;</span></button>
+            	<h4 class="modal-title"><b>Access Denied</b></h4>
+          	</div>
+          	<div class="modal-body">
+          		Sorry! Your account does not permit you to delete this client record..
+          	</div>
+          	<div class="modal-footer">
+            	<button type="button" class="btn btn-default btn-flat pull-right" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+          	</div>
+        </div>
+    </div>
+</div>
+<!-- delte modal end  -->
+
   <?php include 'admin/includes/footer.php'; ?>
 </div> 
 <?php include 'includes/scripts.php'; ?>
 
 <script>
 $(function(){
-  $(document).on('click', '.edit', function(e){
-    e.preventDefault();
-    $('#edit').modal('show');
-    var id = $(this).data('id');
-    getRow(id);
-  });
 
   $(document).on('click', '.delete', function(e){
     e.preventDefault();
-    $('#delete').modal('show');
-    var id = $(this).data('id');
-    getRow(id);
+    $('#delete-client').modal('show');
   });
 
-  $(document).on('click', '.photo', function(e){
-    e.preventDefault();
-    var id = $(this).data('id');
-    getRow(id);
-  });
 
 });
 
-function getRow(id){
-  $.ajax({
-    type: 'POST',
-    url: 'voters_row.php',
-    data: {id:id},
-    dataType: 'json',
-    success: function(response){
-      $('.id').val(response.id);
-      $('#edit_firstname').val(response.firstname);
-      $('#edit_lastname').val(response.lastname);
-      $('#edit_password').val(response.password);
-      $('.fullname').html(response.firstname+' '+response.lastname);
-    }
-  });
-}
+
 </script>
 </body>
 </html>

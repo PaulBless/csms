@@ -9,7 +9,6 @@ if(isset($_SESSION['user']))
 
 if(isset($_POST['save_enquiry']))
 {
-    echo "<script>alert('Access Denied!\\n\\nYour account is currently locked, you cannot login into the system... Please contact your system admin')</script>"; 
     // clean inputs from form
     $clean_fname = trim(htmlspecialchars($_POST['firstname']));
     $clean_lname = trim(htmlspecialchars($_POST['lastname']));
@@ -38,12 +37,14 @@ if(isset($_POST['save_enquiry']))
         $client_id = $conn->insert_id;
         // now save enquiry details
         $sql = "INSERT INTO `enquiries` (`et_id`, `dept_id`, `client_id`, `user_id`, `reason`, `created_on`) VALUES ('$enquiry_type', '$dept_id', '$client_id', '$userid', '$enquiry_detail', CURRENT_TIMESTAMP)";
-        if($conn->query($sql)){
-        $_SESSION['success'] = 'Client service request added successfully';
-        }
-        else{
-        $_SESSION['error'] = $conn->error;
-        }
+        $stmt = $conn->prepare($sql);
+        $stmt ->execute();
+        // if($conn->query($sql)){
+        // $_SESSION['success'] = 'Client service request added successfully';
+        // }
+        // else{
+        // $_SESSION['error'] = $conn->error;
+        // }
         // show success message
         $_SESSION['success'] = 'Service request added successfully';
 
@@ -51,6 +52,6 @@ if(isset($_POST['save_enquiry']))
         $_SESSION['error'] = $conn->error;
     }
 
-header('location: lodgeinquiry.php');
+header('location: lodge_service_request.php');
 }
 ?>

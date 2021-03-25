@@ -2,7 +2,8 @@
 <div class="modal fade" id="platform">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b><span class="fullname"></span></b></h4>
@@ -21,7 +22,8 @@
 <div class="modal fade" id="addnew">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Add New Candidate</b></h4>
@@ -88,7 +90,8 @@
 <div class="modal fade" id="edit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Edit Voter</b></h4>
@@ -149,7 +152,8 @@
 <div class="modal fade" id="delete">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Deleting...</b></h4>

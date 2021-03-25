@@ -2,7 +2,8 @@
 <div class="modal fade" id="addnew">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" >&times;</span></button>
               <h4 class="modal-title"><b>Add New Department</b></h4>
@@ -43,7 +44,8 @@
 <div class="modal fade" id="edit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Edit Department</b></h4>
@@ -77,7 +79,8 @@
 <div class="modal fade" id="delete">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Deleting...</b></h4>
@@ -104,7 +107,8 @@
 <div class="modal fade" id="platform">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b><span class="fullname"></span></b></h4>
@@ -124,7 +128,8 @@
 <div class="modal fade" id="addsub">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Add Sub Category/Unit</b></h4>
@@ -172,7 +177,8 @@
 <div class="modal fade" id="delete-sub">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Deleting...</b></h4>
@@ -198,7 +204,8 @@
 <div class="modal fade" id="view-sub">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Sub Category List</b></h4>
@@ -257,7 +264,8 @@
 <div class="modal fade" id="view">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Sub Units List</b></h4>

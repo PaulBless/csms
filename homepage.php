@@ -1,15 +1,10 @@
 
-<?php include 'includes/conn.php'; ?>
 <?php include 'includes/session.php'; ?>
+<?php include 'includes/conn.php'; ?>
 <?php include 'includes/appsettings.php'; ?>
 <?php include 'includes/header.php'; ?>
 
-<?php 
-  //check if user is logged in
-  // if(empty($_SESSION['user'])){
-  //  header('location: index.php');
-  //  } 
-?>
+
 
 <?php 
   //check if userid exists
@@ -161,7 +156,8 @@
         <div class="modal fade" id="view_info">
           <div class="modal-dialog">
               <div class="modal-content">
-                  <div class="modal-header">
+                  <div class="modal-header" style="color: #3c8dbc">
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"><b>Access Denied</b></h4>

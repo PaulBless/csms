@@ -5,7 +5,7 @@
     <div class="user-panel">
 
       <div class="pull-left image">
-        <img src="<?php  if(!empty($user['photo'])) echo 'images/'.$user['photo']; else echo 'images/profile.jpg'; ?>" class="img-circle" alt="User Image" height="60px">
+        <img class="img-circle" src="<?php  if(!empty($user['photo'])) echo 'images/'.$user['photo']; else echo 'images/profile.jpg'; ?>">
       </div>
       <div class="pull-left info">
         <p><?php  if(!empty($user['firstname']))  echo $user['firstname']. ' '.$user['lastname'];  else echo "Full name";?></p>
@@ -19,7 +19,7 @@
         <li class="" style="font-weight: bold;"><a href="myenquiry.php"><i class="fa fa-th"></i> <span>MY SUBMITTED FORMS</span></a></li>
         
         <li class="header">ACTION </li>
-        <li class="" style="font-weight: bold;"><a href="lodgeinquiry.php"><i class="fa fa-black-tie"></i> <span>NEW SERVICE REQUEST </span></a></li> 
+        <li class="" style="font-weight: bold;"><a href="lodge_service_request.php"><i class="fa fa-black-tie"></i> <span>NEW SERVICE REQUEST </span></a></li> 
         <li class="" style="font-weight: bold;"><a href="clients.php"><i class="fa fa-users"></i> <span>CLIENTS</span></a></li>
 
       <li class="header">ACCOUNT SETTINGS</li>

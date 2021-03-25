@@ -2,7 +2,8 @@
 <div class="modal fade" id="preview_modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Vote Preview</h4>
@@ -21,7 +22,8 @@
 <div class="modal fade" id="platform">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b><span class="candidate"></b></h4>
@@ -40,7 +42,8 @@
 <div class="modal fade" id="view">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="color: #3c8dbc">
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Your Votes</h4>

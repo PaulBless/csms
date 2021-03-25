@@ -10,7 +10,7 @@
 		$query = $conn->query($sql);
 
 		if($query->num_rows < 1){
-			$_SESSION['error'] = 'Invalid username, does not exists!';
+			$_SESSION['error'] = 'Invalid username, or does not exists!';
 		}
 		else{
 			$row = $query->fetch_assoc();
@@ -19,7 +19,7 @@
 				
 			}
 			else{
-				$_SESSION['error'] = 'Incorrect password';
+				$_SESSION['error'] = 'Incorrect password, retry!';
 			}
 		}
 		
