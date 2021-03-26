@@ -28,7 +28,15 @@
 
     $('#searchBox').on('keyup', function(){
     	bookTable.search(this.value).draw();
-	});
+	  });
+
+    var preloader = document.getElementById('preloader');
+        function preload(){
+            preloader.style.display = 'none';
+        }
+        setTimeout(function(){
+            $('#preloader').fadeToggle();
+        }, 500);
 
   })
 </script>

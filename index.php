@@ -21,7 +21,8 @@
 
 <?php include 'includes/appsettings.php'; ?>
 <?php include 'includes/header.php'; ?>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" onload="preload()">
+ <div id="preloader"></div>
 <div class="login-box" >
   	<div class="login-logo" style="margin-bottom: 3px;">
 		  <div class="row">

@@ -63,5 +63,17 @@
       .votelist{
         font-size: 17px;
       }
+
+      #preloader{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        opacity: 1.0;
+			  top: 0px;
+			  left: 0px;
+        background: #bf8f8f url('./images/ajax-loader-br.gif')
+        no-repeat center;
+        z-index: 99999;
+      }
   	</style>		
 </head>

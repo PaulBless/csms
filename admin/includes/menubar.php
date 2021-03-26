@@ -4,12 +4,10 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <!-- <img src="<?php // echo (!empty($user['photo'])) ? '../images/'.$user['photo'] : '../images/profile.jpg'; ?>" class="img-circle" alt="User Image"> -->
         <img src="<?php echo (!empty($user['photo'])) ? '../images/'.$user['photo'] : '../images/profile.jpg'; ?>" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <!-- <p><?php // echo $user['firstname'].' '.$user['lastname']; ?></p> -->
-        <p><?php if(!empty($user['firstname'])) echo $user['firstname']. ' '.$user['lastname']; else echo "Administrator"; ?></p>
+        <p><?php if(!empty($user['firstname'])) echo $user['firstname'].' '.$user['lastname']; else echo "Administrator"; ?></p>
         <a><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
@@ -26,8 +24,7 @@
    
       <li class="header">MANAGE</li>
       <li class="" style="font-weight: bold;"><a href="clients.php"><i class="fa fa-users"></i> <span>Clients</span></a></li>
-      <li class="" style="font-weight: bold;"><a href="enquiries.php"><i class="fa fa-folder-open"></i> <span>Enquiries</span></a></li>
-      <!-- <li class="" style="font-weight: bold;"><a href=""><i class="fa fa-black-tie"></i> <span>Candidates</span></a></li> -->
+      <li class="" style="font-weight: bold;"><a href="enquiries.php"><i class="fa fa-folder-open"></i> <span>Service Request List</span></a></li>
       
       <li class="header">REPORTS</li>
       <li class="" style="font-weight: bold;"><a href="complaints.php"><span class="glyphicon glyphicon-bookmark"></span> <span>Complaints Types</span></a></li>

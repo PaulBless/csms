@@ -1,66 +1,16 @@
+<!-- Add -->
+<div class="modal fade" id="addnew">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="color: #3c8dbc">
 
-<?php 
-
-include 'includes/session.php'; 
-include 'includes/conn.php'; 
-include 'includes/header.php'; 
-
-?>
-
-
-
-<body class="hold-transition skin-blue sidebar-mini" onload="preload()">
-<div class="wrapper"> 
-<div id="preloader"></div>
-
-  <?php include 'nav.php'; ?>
-  <?php include 'menu.php'; ?>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        New Service Request
-      </h1>
-        <ol class="breadcrumb">
-            <li><a href="homepage.php"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
-        </ol>
-
-        <hr style="border: 1px solid #007bff">
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <?php
-        if(isset($_SESSION['error'])){
-          echo "
-            <div class='alert alert-danger alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              ".$_SESSION['error']."
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><b>Add New Service Request</b></h4>
             </div>
-          ";
-          unset($_SESSION['error']);
-        }
-        if(isset($_SESSION['success'])){
-          echo "
-            <div class='alert alert-success alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              ".$_SESSION['success']."
-            </div>
-          ";
-          unset($_SESSION['success']);
-        }
-      ?>
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-         <form class="form-horizontal" id="add_enquiry" action="add-service.php" method="POST">
-            <div class="col-lg-12 " >
-           
-                <div class="col-lg-6 " >
-                    <input type="hidden" class="id" name="clientid">
-                    <h4 class="text-center text-warning" style="margin-bottom: 15px;">Client Info Details</h4>
+            <div class="modal-body">
+            <form class="form-horizontal" id="add_enquiry" action="add-request.php" method="POST">
+                    <?php require_once('includes/conn.php'); ?>
                     
                     <div class="form-group">
                         <label for="firstname" class="col-sm-3 control-label">Firstname <span class="text-danger">*</span></label>
@@ -73,7 +23,6 @@ include 'includes/header.php';
                         <label for="lastname" class="col-sm-3 control-label">Lastname <span class="text-danger">*</span></label>
                         <div class="col-sm-7">
                         <input type="text" class="form-control" id="lastname" name="lastname" required placeholder="Smith">
-                        <!-- <span>Enter lasstname of client</span> -->
                         </div>
                     </div>
 
@@ -105,14 +54,11 @@ include 'includes/header.php';
                         </select>
                         </div>
                     </div>              
-                </div>
 
-                <div class="col-lg-6">
-                    <h4 class="text-center text-warning " style="margin-bottom: 15px;">Service Info Details</h4>
 
                     <div class="form-group">
                         <label for="enquiry_type" class="col-sm-3 control-label">Service Type <span class="text-danger">*</span></label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                         <select name="enquirytype_id" id="enquiry_type" class="col-sm-9 form-control" required>
                             <?php 
                                 $q =  "SELECT * FROM `enquiry_type` ORDER BY `name` ASC";
@@ -134,14 +80,14 @@ include 'includes/header.php';
                     
                     <div class="form-group">
                         <label for="edit_lastname" class="col-sm-3 control-label">Service Request Details <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                           <textarea name="enq_reason" id="enq_reason" class="form-control" cols="9" rows="2" required placeholder="Apply for business operating permit"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="department" class="col-sm-3 control-label">Department <span class="text-danger">*</span></label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <select name="department_id" id="department" class="col-sm-9 department form-control" onChange="" required>
                             <?php 
                                 $q =  "SELECT * FROM `departments` ORDER BY `dept_name` ASC";
@@ -163,7 +109,7 @@ include 'includes/header.php';
                     
                     <div class="form-group">
                         <label for="subcategory" class="col-sm-3 control-label">Sub Unit</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                           <select name="subcategory_id" id="subcategory" class="col-sm-9 form-control">
                             <?php 
                                 $q =  "SELECT * FROM `sub_category` ORDER BY `sub_dept_name` ASC";
@@ -183,107 +129,81 @@ include 'includes/header.php';
                         <span class="text-danger">(if any)</span>
                         </div>
                     </div>                  
-                </div>
 
-              
-                <!-- button group -->
-                <div class="row action-buttons text-center" >
-                    <button type="submit" name="save_enquiry" id="btnsave" class="btn btn-primary btn-md btn-flat submit" style="margin-right: 10px; margin-top: 5px; width: 100px; font-weight: bold">Submit</button>
-                   <a href="homepage.php"> <button type="button" class="btn btn-danger btn-md btn-flat cancel" style="width: 80px; font-weight: bold; margin-top: 5px;">Cancel</button> </a>
-                </div>
+            </div>
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="submit" class="btn btn-primary btn-flat" name="add"><i class="fa fa-save"></i> Submit</button>
         </form>
 
-              
-            
+            </div>
         </div>
     </div>
-
-      
-    </section>
-      <!-- right col -->
-    </div>
-
-
-    <?php include 'admin/includes/footer.php'; ?>
-
 </div>
-<!-- ./wrapper -->
 
-<?php include 'includes/scripts.php'; ?>
+<!-- Edit -->
+<div class="modal fade" id="edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="color: #3c8dbc">
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    //$(this).prop("disabled", true);
-    $("#btnsave").click(function(){
-        $(this).html(
-        `<span style="display: inline-block;
-        width: 2rem;
-        height: 2rem;
-        vertical-align: text-bottom;
-        border: .25em solid currentColor;
-        border-right-color: transparent;
-        border-radius: 50%;
-        -webkit-animation: spinner-border .75s linear infinite;
-        animation: spinner-border .75s linear infinite;width: 1rem;
-        height: 1rem;
-        border-width: .2em;
-        " class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> processing`);
-        setTimeOut(function(){
-            $(this).html("");
-        }, 500);
-    });
-    
-    $("select.country").change(function(){
-        var selectedCountry = $(".country option:selected").val();
-        $.ajax({
-            type: "POST",
-            url: "process-request.php",
-            data: { country : selectedCountry } 
-        }).done(function(data){
-            $("#state").html(data);
-        });
-    });
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><b>Edit Service Request</b></h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" method="POST" action="">
+                <input type="hidden" class="id" name="id" id="id">
+                <div class="form-group">
+                    <label for="edit_enqname" class="col-sm-3 control-label">Service Type name</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="edit_enqname" name="edit_enqname" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit_desc" class="col-sm-3 control-label">Description</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="edit_desc" name="edit_desc">
+                    </div>
+                </div>
+             
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="submit" class="btn btn-info btn-flat" name="edit"><i class="fa fa-check-square-o"></i> Update</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-  });
-</script>
+<!-- Delete -->
+<div class="modal fade" id="delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="color: #3c8dbc">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><b>Deleting...</b></h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" method="POST" action="">
+                <input type="hidden" class="id" name="id" id="id">
+                <div class="text-center">
+                    <h4 class="bold fullname text-danger">Sorry... This request can't be completed because all enquiries and service requests are archieved for future references and reports..</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Delete</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
-<script type="text/javascript">
-  function getUnit(val) {
-    var department_id = val.options[val.selectedIndex].value;
-    $.ajax({
-      type: "POST",
-      url: "fetch-subunits.php",
-      data: 'dept_id='+val,
-      beforeSend: function() {
-        $("#subcategory").addClass("loader");
-      },
-      success: function(data){
-        $("#subcategory").html(data);
-      }
-    });
-  }
 
-  function showCategory(sel) {
-      var dept_id = sel.options[sel.selectedIndex].value;
-      $("#subcategory").html("");
-        if (dept_id.length > 0) {
-            $.ajax({
-              type: "POST",
-              url: "fetch_subunits.php",
-              data: "dept_id=" + dept_id,
-              cache: false,
-              beforeSend: function() {
-                $('#subcategory').html('<img src="images/loader.gif" alt="" width="24" height="24">');
-             },
-             success: function(html) {
-              $("#subcategory").html(html);
-            }
-            });
-          }
-    }
-</script>
-
-</body>
-</html>
+     

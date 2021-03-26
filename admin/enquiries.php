@@ -12,7 +12,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Enquiry List
+        Enquiries / Service Requests List
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -63,33 +63,47 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-              <a href="#addnew" data-toggle="modal" data-target="" class="hidden btn btn-primary btn-md btn-flat"><i class="fa fa-plus"></i> Add Enquiry</a>
+              <a href="#addnew" data-toggle="modal" data-target="" class=" btn btn-primary btn-md btn-flat pull-right"><i class="fa fa-plus"></i> Add Service Request</a>
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
+                  <th>No</th>
                   <th class="hidden">ID</th>
-                  <th>Enquiry Name</th>
-                  <th>Description</th>
+                  <th>Type</th>
+                  <th>Department</th>
+                  <th>Client Name</th>
+                  <th>Entered By</th>
+                  <th>Visit Reason/Details</th>
+                  <th>Date Created</th>
                   <th>Actions</th>
                 </thead>
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM `enquiry_type` ORDER BY `etid` ASC";
+                    // $sql = "SELECT * FROM `enquiries` ";
+                    $cnt = 1;
+                    $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
+                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                         while($row = $query->fetch_assoc()){
                         echo "
                             <tr>
-                            <td class='hidden'>".$row['etid']."</td>
+                            <td>".$cnt."</td>
+                            <td class='hidden'>".$row['eid']."</td>
                             <td>".$row['name']."</td>
-                            <td>".$row['comment']."</td>
+                            <td>".$row['dept_name']."</td>
+                            <td>".$row['fullname']."</td>
+                            <td>".$row['username']."</td>
+                            <td>".$row['reason']."</td>
+                            <td>".date('d M, Y',strtotime ($row['date']))."</td>
                             <td>
-                                <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['etid']."'><i class='fa fa-edit'></i> Edit</button>
-                                <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['etid']."'><i class='fa fa-trash'></i> Delete</button>
+                                <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-edit'></i> Edit</button>
+                                <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['eid']."'><i class='fa fa-trash'></i> Delete</button>
                             </td>
                             </tr>
                         ";
+                        $cnt += 1;
                         }
                     }
                   ?>
@@ -104,7 +118,7 @@
     
 <!-- </div> -->
 
-  <?php include 'includes/enqtype_modal.php'; ?>
+  <?php include 'includes/enquiry_modal.php'; ?>
   <?php include 'includes/footer.php'; ?>
 
 </div>
@@ -125,11 +139,7 @@ $(function(){
     getRow(id);
   });
 
-  $(document).on('click', '.photo', function(e){
-    e.preventDefault();
-    var id = $(this).data('id');
-    getRow(id);
-  });
+
 
 
 });
@@ -137,7 +147,7 @@ $(function(){
 function getRow(id){
   $.ajax({
     type: 'POST',
-    url: 'enqtype_row.php',
+    url: 'enquiries_row.php',
     data: {id:id},
     dataType: 'json',
     success: function(response){

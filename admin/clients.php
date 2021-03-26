@@ -1,6 +1,8 @@
 <?php include 'includes/conn.php'; ?>
+<?php include 'includes/sess.php'; ?>
 <?php include 'includes/header.php'; ?>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" onload="loading()">
+<div id="preloader"></div>
 <div class="wrapper">
 
   <?php include 'includes/navbar.php'; ?>
@@ -26,7 +28,6 @@
           echo "
             <div class='alert alert-danger alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              // <h4><i class='icon fa fa-warning'></i> Error!</h4>
               ".$_SESSION['error']."
             </div>
           ";
@@ -36,7 +37,6 @@
           echo "
             <div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              // <h4><i class='icon fa fa-check'></i> Success!</h4>
               ".$_SESSION['success']."
             </div>
           ";
@@ -47,11 +47,12 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-              <!-- <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Add New Client</a> -->
+
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered">
                 <thead>
+                  <th>No</th>
                   <th>Lastname</th>
                   <th>Firstname</th>
                   <th>Mobile No</th>
@@ -60,6 +61,7 @@
                 </thead>
                 <tbody>
                   <?php
+                  $cnt = 1;
                     $sql = "SELECT * FROM `clients`";
                     $query = $conn->query($sql);
                     if(!empty($query)){
@@ -68,17 +70,18 @@
                          $get = mysqli_fetch_assoc($fetch);
                         echo "
                         <tr>
+                        <td>".$cnt."</td>
                         <td>".$row['lastname']."</td>
                         <td>".$row['firstname']."</td>
                         <td>".$row['mobileno']." </td>
-                        //<td>".$row['location_id']."</td>
-                        <td>".$row['loc_name']."</td>
+                        <td>".$get['loc_name']."</td>
                           <td>
-                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['cid']."'><i class='fa fa-edit'></i> Edit</button>
+                            <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['cid']."'><i class='fa fa-eye'></i> View</button>
                             <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['cid']."'><i class='fa fa-trash'></i> Delete</button>
                           </td>
                         </tr>
                       ";
+                      $cnt +=1;
                     }
                   }
                   ?>
@@ -93,7 +96,7 @@
 
 <!-- </div> -->
 
-  <?php //include 'includes/user_modal.php'; ?>
+  <?php include 'includes/client_modal.php'; ?>
   <?php include 'includes/footer.php'; ?>
 </div> 
 <?php include 'includes/scripts.php'; ?>
@@ -114,28 +117,32 @@ $(function(){
     getRow(id);
   });
 
-  $(document).on('click', '.photo', function(e){
-    e.preventDefault();
-    var id = $(this).data('id');
-    getRow(id);
-  });
 
 });
 
 function getRow(id){
   $.ajax({
     type: 'POST',
-    url: 'voters_row.php',
+    url: 'clients_row.php',
     data: {id:id},
     dataType: 'json',
     success: function(response){
       $('.id').val(response.cid);
       $('#edit_firstname').val(response.firstname);
       $('#edit_lastname').val(response.lastname);
-      $('#edit_password').val(response.password);
+      $('#edit_mobile').val(response.mobileno);
+      $('#edit_location').val(response.loc_name);
       $('.fullname').html(response.firstname+' '+response.lastname);
     }
   });
+}
+</script>
+<script>
+function loading(){
+  $('#preloader').show();
+    setTimeout(function(){
+      $('#preloader').fadeToggle('fast');
+  }, 1500);
 }
 </script>
 </body>

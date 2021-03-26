@@ -87,7 +87,6 @@ CREATE TABLE IF NOT EXISTS `enquiries` (
   `dept_id` int(11) NOT NULL, -- dept_id foreign key
   `client_id` int(11) NOT NULL, -- client_id foreign key
   `user_id` int(11) NOT NULL, -- user_id foreign key
-  -- `enquiryType` varchar(50) NOT NULL,
   `reason` varchar(1500) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`eid`)

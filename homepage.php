@@ -14,7 +14,8 @@
 
 ?>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" onload="preload()">
+<div id="preloader"></div>
 <div class="wrapper">
 
   <?php include 'nav.php'; ?>
@@ -40,7 +41,6 @@
           echo "
             <div class='alert alert-danger alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-warning'></i> Error!</h4>
               ".$_SESSION['error']."
             </div>
           ";
@@ -50,7 +50,6 @@
           echo "
             <div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-check'></i> Success!</h4>
               ".$_SESSION['success']."
             </div>
           ";
@@ -93,7 +92,7 @@
                 }else{ echo "<h3>0</h3>";}
               ?>
              
-              <p>My Submitted Enquiries</p>
+              <p>My Submissions</p>
             </div>
             <div class="icon">
               <i class="fa fa-tasks"></i>
@@ -109,14 +108,14 @@
           <div class="small-box bg-yellow">
             <div class="inner">
               <?php
-                $sql = "SELECT * FROM `enquiries` WHERE `et_id`='1'";
+                $sql = "SELECT * FROM `enquiries`";
                 $query = $conn->query($sql);
                 if(!empty($query)){
                   echo "<h3>".$query->num_rows."</h3>";
                 }else{ echo "<h3>0</h3>";}
               ?>
              
-              <p>Total Enquiries</p>
+              <p>Total Service Requests</p>
             </div>
             <div class="icon">
               <i class="fa fa-folder-open"></i>
@@ -140,7 +139,7 @@
                 }else{ echo "<h3>0</h3>";}
               ?>
              
-              <p> Enquiries for <?php echo date('Y') ?></p>
+              <p> Service Request for <b><?php echo date('Y') ?></b> </p>
             </div>
             <div class="icon">
               <i class="fa fa-file"></i>
@@ -172,7 +171,6 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
                     <button type="submit" class="btn btn-danger btn-flat" > OK</button>
                     </form>
                   </div>

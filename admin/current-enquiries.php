@@ -1,23 +1,23 @@
-<?php include 'includes/session.php'; ?>
 <?php include 'includes/conn.php'; ?>
+<?php include 'includes/sess.php'; ?>
 <?php include 'includes/header.php'; ?>
+<body class="hold-transition skin-blue sidebar-mini" onload="loading()">
+<div id="preloader"></div>
+<div class="wrapper">
 
-<body class="hold-transition skin-blue sidebar-mini" onload="preload()">
-<div class="wrapper"> <div id="preloader"></div>
-
-  <?php include 'nav.php'; ?>
-  <?php include 'menu.php'; ?>
+  <?php include 'includes/navbar.php'; ?>
+  <?php include 'includes/menubar.php'; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Clients List
+        Service Requests for <span class="text-danger"><?php echo date('Y') ?></span>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="homepage.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Clients</li>
+        <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Service Request</li>
       </ol>
     </section>
 
@@ -28,7 +28,6 @@
           echo "
             <div class='alert alert-danger alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              // <h4><i class='icon fa fa-warning'></i> Error!</h4>
               ".$_SESSION['error']."
             </div>
           ";
@@ -38,7 +37,6 @@
           echo "
             <div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              // <h4><i class='icon fa fa-check'></i> Success!</h4>
               ".$_SESSION['success']."
             </div>
           ";
@@ -49,21 +47,21 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-              <!-- <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Add New Client</a> -->
+
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-hover">
                 <thead>
                   <th>No</th>
-                  <th>Full Name</th>
+                  <th>Lastname</th>
+                  <th>Firstname</th>
                   <th>Mobile No</th>
                   <th>Location</th>
-                  <th>Date Created</th>
                   <th>Action</th>
                 </thead>
                 <tbody>
                   <?php
-                   $cnt = 1;
+                  $cnt = 1;
                     $sql = "SELECT * FROM `clients`";
                     $query = $conn->query($sql);
                     if(!empty($query)){
@@ -73,19 +71,19 @@
                         echo "
                         <tr>
                         <td>".$cnt."</td>
-                        <td>".$row['firstname'].' '.$row['lastname']."</td>
+                        <td>".$row['lastname']."</td>
+                        <td>".$row['firstname']."</td>
                         <td>".$row['mobileno']." </td>
                         <td>".$get['loc_name']."</td>
-                        <td>".$row['created_on']."</td>
                           <td>
+                            <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['cid']."'><i class='fa fa-eye'></i> View</button>
                             <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['cid']."'><i class='fa fa-trash'></i> Delete</button>
                           </td>
                         </tr>
                       ";
-                      
-                      $cnt=$cnt+1;
-                    } 
-                  } 
+                      $cnt +=1;
+                    }
+                  }
                   ?>
                 </tbody>
               </table>
@@ -97,43 +95,55 @@
   </div>
 
 <!-- </div> -->
-<!-- delete modal  -->
-<div class="modal fade" id="delete-client">
-    <div class="modal-dialog">
-        <div class="modal-content">
-          	<div class="modal-header" style="color: #3c8dbc">
 
-            	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              		<span aria-hidden="true">&times;</span></button>
-            	<h4 class="modal-title"><b>Access Denied</b></h4>
-          	</div>
-          	<div class="modal-body">
-          		Sorry! Your account does not permit you to delete this client record..
-          	</div>
-          	<div class="modal-footer">
-            	<button type="button" class="btn btn-default btn-flat pull-right" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-          	</div>
-        </div>
-    </div>
-</div>
-<!-- delte modal end  -->
-
-  <?php include 'admin/includes/footer.php'; ?>
+  <?php include 'includes/client_modal.php'; ?>
+  <?php include 'includes/footer.php'; ?>
 </div> 
 <?php include 'includes/scripts.php'; ?>
 
 <script>
 $(function(){
+  $(document).on('click', '.edit', function(e){
+    e.preventDefault();
+    $('#edit').modal('show');
+    var id = $(this).data('id');
+    getRow(id);
+  });
 
   $(document).on('click', '.delete', function(e){
     e.preventDefault();
-    $('#delete-client').modal('show');
+    $('#delete').modal('show');
+    var id = $(this).data('id');
+    getRow(id);
   });
 
 
 });
 
-
+function getRow(id){
+  $.ajax({
+    type: 'POST',
+    url: 'clients_row.php',
+    data: {id:id},
+    dataType: 'json',
+    success: function(response){
+      $('.id').val(response.cid);
+      $('#edit_firstname').val(response.firstname);
+      $('#edit_lastname').val(response.lastname);
+      $('#edit_mobile').val(response.mobileno);
+      $('#edit_location').val(response.loc_name);
+      $('.fullname').html(response.firstname+' '+response.lastname);
+    }
+  });
+}
+</script>
+<script>
+function loading(){
+  $('#preloader').show();
+    setTimeout(function(){
+      $('#preloader').fadeToggle('fast');
+  }, 1500);
+}
 </script>
 </body>
 </html>

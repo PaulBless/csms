@@ -1,6 +1,7 @@
 
 <?php
 include 'includes/conn.php'; 
+include 'includes/session.php';
 include 'includes/header.php';
 
 //query to fetch locations
@@ -8,21 +9,16 @@ $sql = "SELECT * FROM `locations` ORDER BY `loc_name` ASC";
 $rs =mysqli_query($conn, $sql);
 
 //check if userid exists
+$userid = "";
 if(isset($_SESSION['user']))
   $userid = $_SESSION['user'];
 
 ?>
 
-<?php 
-  // if(empty($_SESSION['user'])){
-  //  header('location: index.php');
-  //  } 
-?>
 
 
-
-
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" onload="preload()">
+<div id="preloader"></div>
 <div class="wrapper">
 
     <?php include 'nav.php'; ?>
@@ -47,7 +43,6 @@ if(isset($_SESSION['user']))
           echo "
             <div class='alert alert-danger alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-warning'></i> Error!</h4>
               ".$_SESSION['error']."
             </div>
           ";
@@ -57,7 +52,6 @@ if(isset($_SESSION['user']))
           echo "
             <div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-check'></i> Success!</h4>
               ".$_SESSION['success']."
             </div>
           ";
@@ -73,30 +67,33 @@ if(isset($_SESSION['user']))
             <div class="box-body">
               <table id="example1" class="table table-bordered">
                 <thead>
-                  <th>Lastname</th>
-                  <th>Firstname</th>
-                  <th>Mobile No</th>
-                  <th>Location</th>
-                  <th>Action</th>
+                  <th>S/N</th>
+                  <th>Type</th>
+                  <th>Department</th>
+                  <th>Client Name No</th>
+                  <th>Service Details/Reason</th>
+                  <th>Date Created</th>
                 </thead>
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM `enquiries` WHERE `user_id`='$userid'";
+                    $cnt = 1;
+                    // $sql = "SELECT * FROM `enquiries` WHERE `user_id`='$userid'";
+                    $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
+                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid WHERE enquiries.user_id=$userid";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                     while($row = $query->fetch_assoc()){
                       echo "
                         <tr>
-                          <td>".$row['lastname']."</td>
-                          <td>".$row['firstname']."</td>
-                          <td>".$row['mobileno']." </td>
-                          <td>".$row['location_id']."</td>
-                          <td>
-                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
-                            <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Delete</button>
-                          </td>
+                          <td>".$cnt."</td>
+                          <td>".$row['name']."</td>
+                          <td>".$row['dept_name']."</td>
+                          <td>".$row['fullname']."</td>
+                          <td>".$row['reason']." </td>
+                          <td>".$row['date']."</td>
                         </tr>
                       ";
+                      $cnt += 1;
                     }
                   }
                   ?>
@@ -109,8 +106,8 @@ if(isset($_SESSION['user']))
     </section>   
   </div>
     
-  <?php include 'admin/includes/footer.php'; ?>
   <?php include 'includes/user_modal.php'; ?>
+  <?php include 'admin/includes/footer.php'; ?>
 </div>
 <?php include 'includes/scripts.php'; ?>
 <script>

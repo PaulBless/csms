@@ -98,7 +98,7 @@
                             </tr>
                         ";
                         }
-                    } //echo "<tr> <td>IT</td> <td>IT</td> <td class='text-center'> <a href='#delete-sub' data-toggle='modal' class='pull-left '> <span class='fa fa-edit'></span></a>  IT <a href='#platform' data-toggle='modal' class='pull-right'> <span class='fa fa-trash'></span></a> </td> <td>IT</td> </tr> ";
+                    } 
                   ?>
                 </tbody>
               </table>

@@ -1,5 +1,4 @@
 <?php  include 'includes/sess.php'; ?>
-<?php //include 'includes/slugify.php'; ?>
 <?php include 'includes/conn.php'; ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini" onload="loading()">

@@ -11,7 +11,7 @@
 		$user_type = trim(htmlspecialchars($_POST['usertype']));
 		$new_status = "Active"; // status of new user account
         $firstname = ucfirst($fname); // uppercase firstname
-        $lastname = ucfirst($lname); // uppercase lastname
+        $lastname = ucwords($lname); // uppercase lastname
 
 		$filename = $_FILES['photo']['name']; // photo of user
 		if(!empty($filename)){
