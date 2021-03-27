@@ -16,7 +16,7 @@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">REPORTS</li>
         <li class="" style="font-weight: bold;"><a href="homepage.php"><i class="fa fa-dashboard"></i> <span>DASHBOARD</span></a></li>
-        <li class="" style="font-weight: bold;"><a href="myenquiry.php"><i class="fa fa-th"></i> <span>MY SUBMITTED FORMS</span></a></li>
+        <li class="" style="font-weight: bold;"><a href="myenquiry.php"><i class="fa fa-th"></i> <span>MY SUBMISSIONS</span></a></li>
         
         <li class="header">ACTION </li>
         <li class="" style="font-weight: bold;"><a href="lodge_service_request.php"><i class="fa fa-black-tie"></i> <span>NEW SERVICE REQUEST </span></a></li> 
