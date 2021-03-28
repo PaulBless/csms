@@ -15,7 +15,7 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header"> MAIN MENU</li>
       <li class="" style="font-weight: bold;"> <a href="home.php"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> </a></li>
-      <li class="" style="font-weight: bold;"><a href="settings.php" ><i class="fa fa-cogs"></i> <span>System Settings</span></a></li>
+      <li class="" style="font-weight: bold;"><a href="#settings" data-toggle="modal" ><i class="fa fa-cogs"></i> <span>System Settings</span></a></li>
 
       <li class="header">SETTINGS</li>
       <li class="" style="font-weight: bold;"><a href="departments.php" ><i class="fa fa-tags"></i> <span>Departments</span></a></li>
@@ -38,4 +38,4 @@
   </section>
   <!-- /.sidebar -->
 </aside>
-<?php include 'config_modal.php'; ?>
+<?php include 'settings_modal.php'; ?>

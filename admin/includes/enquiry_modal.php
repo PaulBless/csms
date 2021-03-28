@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
             <form class="form-horizontal" id="add_enquiry" action="add-request.php" method="POST">
-                    <?php require_once('includes/conn.php'); ?>
+                  <?php require_once('includes/conn.php'); ?>
                     <input type="hidden" name="enquiryID" id="enquiryID" class="form-control" value="<?php echo mt_rand(1000,9999) ?>">
                     <div class="form-group">
                         <label for="firstname" class="col-sm-3 control-label">Firstname <span class="text-danger">*</span></label>

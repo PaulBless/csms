@@ -12,7 +12,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Enquiries / Service Requests List
+        Service Requests List <span class="text-danger">(Enquiries & Complaints) </span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -75,9 +75,9 @@
                   <th>Type</th>
                   <th>Department</th>
                   <th>Client Name</th>
-                  <th>Served By</th>
                   <th>Service ID</th>
                   <th>Visit Reason / Service Details</th>
+                  <th>Entry By</th>
                   <th>Date Created</th>
                   <th>Action</th>
                 </thead>
@@ -97,9 +97,9 @@
                             <td>".$row['name']."</td>
                             <td>".$row['dept_name']."</td>
                             <td>".$row['fullname']."</td>
-                            <td>".$row['username']."</td>
                             <td>".$row['service_id']."</td>
                             <td>".$row['reason']."</td>
+                            <td>".$row['username']."</td>
                             <td>".date('d M, Y',strtotime ($row['date']))."</td>
                             <td>
                                 <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-edit'></i> Edit</button>

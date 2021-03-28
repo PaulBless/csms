@@ -59,8 +59,8 @@
                   <th>Type</th>
                   <th>Department</th>
                   <th>Client Name</th>
-                  <th>Entered By</th>
                   <th>Visit Reason / Service Details</th>
+                  <th>Entered By</th>
                   <th>Date Created</th>
                   <th>Actions</th>
                 </thead>
@@ -81,12 +81,12 @@
                             <td>".$row['name']."</td>
                             <td>".$row['dept_name']."</td>
                             <td>".$row['fullname']."</td>
-                            <td>".$row['username']."</td>
                             <td>".$row['reason']."</td>
+                            <td>".$row['username']."</td>
                             <td>".date('d M, Y',strtotime ($row['date']))."</td>
                             <td>
                                 <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-edit'></i> Edit</button>
-                                <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['eid']."'><i class='fa fa-trash'></i> Delete</button>
+                                <button class='btn btn-danger btn-sm delete btn-flat ' data-id='".$row['eid']."'><i class='fa fa-trash'></i> Delete</button>
                             </td>
                             </tr>
                         ";
@@ -105,7 +105,7 @@
 
 <!-- </div> -->
 
-  <?php include 'includes/client_modal.php'; ?>
+  <?php include 'includes/enquiry_modal.php'; ?>
   <?php include 'includes/footer.php'; ?>
 </div> 
 <?php include 'includes/scripts.php'; ?>
@@ -132,7 +132,7 @@ $(function(){
 function getRow(id){
   $.ajax({
     type: 'POST',
-    url: 'clients_row.php',
+    url: 'enquiries_row.php',
     data: {id:id},
     dataType: 'json',
     success: function(response){

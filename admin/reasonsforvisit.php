@@ -54,10 +54,10 @@
                 <thead class="bg-blue" style="color: black;">
                   <th>No</th>
                   <th class="hidden">ID</th>
+                  <th>Service ID</th>
+                  <th>Client Name</th>
                   <th>Type</th>
                   <th>Department</th>
-                  <th>Client Name</th>
-                  <th>Service ID</th>
                   <th>Visit Reason / Service Details</th>
                   <th>Date Created</th>
                   <th class="hidden">Actions</th>
@@ -66,7 +66,7 @@
                   <?php
                     $cnt = 1;
                     $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
-                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN `enquiry_type` ON `enquiries`.`et_id`=`enquiry_type`.`etid` INNER JOIN `departments` ON `enquiries`.`dept_id`=`departments`.`did` INNER JOIN `clients` ON `enquiries`.`client_id`=`clients`.`cid` INNER JOIN `users` ON `enquiries`.`user_id`=`users`.`uid` ORDER BY `dept_name` ASC, `enquiries`.`created_on` DESC";
+                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`enquiryid` AS `service_id`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN `enquiry_type` ON `enquiries`.`et_id`=`enquiry_type`.`etid` INNER JOIN `departments` ON `enquiries`.`dept_id`=`departments`.`did` INNER JOIN `clients` ON `enquiries`.`client_id`=`clients`.`cid` INNER JOIN `users` ON `enquiries`.`user_id`=`users`.`uid` ORDER BY `dept_name` ASC, `enquiries`.`created_on` DESC";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                         while($row = $query->fetch_assoc()){
@@ -74,10 +74,10 @@
                             <tr>
                             <td>".$cnt."</td>
                             <td class='hidden'>".$row['eid']."</td>
+                            <td>".$row['service_id']."</td>
+                            <td>".$row['fullname']."</td>
                             <td>".$row['name']."</td>
                             <td>".$row['dept_name']."</td>
-                            <td>".$row['fullname']."</td>
-                            <td>".$row['username']."</td>
                             <td>".$row['reason']."</td>
                             <td>".date('d M, Y',strtotime ($row['date']))."</td>
                             <td>

@@ -142,7 +142,7 @@ include 'includes/header.php';
                     <div class="form-group">
                         <label for="department" class="col-sm-3 control-label">Department <span class="text-danger">*</span></label>
                         <div class="col-sm-6">
-                            <select name="department_id" id="department" class="col-sm-9 department form-control" onChange="" required>
+                            <select name="department_id" id="department" class="col-sm-9 department form-control" onChange="showCategory(this.options[this.selectedIndex].value,'subcategory')" required>
                             <?php 
                                 $q =  "SELECT * FROM `departments` ORDER BY `dept_name` ASC";
                                 $get = ($conn->query($q) );

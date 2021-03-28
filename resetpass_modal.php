@@ -5,7 +5,7 @@
           	<div class="modal-header" style="color: #3c8dbc">
             	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
               		<span aria-hidden="true">&times;</span></button>
-            	<h4 class="modal-title"><?php echo $user['firstname'].' '.$user['lastname'] ?>, <b class="text-danger">Change Your Password</b></h4>
+            	<h4 class="modal-title"> Change Your Password</h4>
           	</div>
           	<div class="modal-body">
             	<form class="form-horizontal" method="POST" action="change_password.php?return=<?php echo basename($_SERVER['PHP_SELF']); ?>" >
