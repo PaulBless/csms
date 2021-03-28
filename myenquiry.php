@@ -29,7 +29,7 @@ if(isset($_SESSION['user']))
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        My Submitted Enquiry
+        My Submissions
       </h1>
       <ol class="breadcrumb">
         <li><a href="homepage.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -65,13 +65,16 @@ if(isset($_SESSION['user']))
               <!-- <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Add New Client</a> -->
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered">
-                <thead>
+              <table id="example1" class="table table-bordered table-hover" width="100%">
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th>S/N</th>
                   <th>Type</th>
                   <th>Department</th>
-                  <th>Client Name No</th>
-                  <th>Service Details/Reason</th>
+                  <th>Client Name </th>
+                  <th>Service ID</th>
+                  <th>Service Details / Visit Reason</th>
                   <th>Date Created</th>
                 </thead>
                 <tbody>
@@ -79,7 +82,7 @@ if(isset($_SESSION['user']))
                     $cnt = 1;
                     // $sql = "SELECT * FROM `enquiries` WHERE `user_id`='$userid'";
                     $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
-                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid WHERE enquiries.user_id=$userid";
+                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`enquiryid` AS `service_id`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid WHERE enquiries.user_id=$userid";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                     while($row = $query->fetch_assoc()){
@@ -89,6 +92,7 @@ if(isset($_SESSION['user']))
                           <td>".$row['name']."</td>
                           <td>".$row['dept_name']."</td>
                           <td>".$row['fullname']."</td>
+                          <td>".$row['service_id']."</td>
                           <td>".$row['reason']." </td>
                           <td>".$row['date']."</td>
                         </tr>

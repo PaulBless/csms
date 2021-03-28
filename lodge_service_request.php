@@ -56,11 +56,11 @@ include 'includes/header.php';
       <!-- Small boxes (Stat box) -->
       <div class="row">
          <form class="form-horizontal" id="add_enquiry" action="add-service.php" method="POST">
-            <div class="col-lg-12 " >
-           
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-xs-6" >
+                <input type="hidden" name="enquiryID" id="enquiryID" class="form-control" value="<?php echo mt_rand(1000,9999) ?>"> 
                 <div class="col-lg-6 " >
                     <input type="hidden" class="id" name="clientid">
-                    <h4 class="text-center text-warning" style="margin-bottom: 15px;">Client Info Details</h4>
+                    <h4 class="text-center text-warning" style="margin-bottom: 15px;">Client Details</h4>
                     
                     <div class="form-group">
                         <label for="firstname" class="col-sm-3 control-label">Firstname <span class="text-danger">*</span></label>
@@ -108,7 +108,7 @@ include 'includes/header.php';
                 </div>
 
                 <div class="col-lg-6">
-                    <h4 class="text-center text-warning " style="margin-bottom: 15px;">Service Info Details</h4>
+                    <h4 class="text-center text-warning " style="margin-bottom: 15px;">Service Request Details</h4>
 
                     <div class="form-group">
                         <label for="enquiry_type" class="col-sm-3 control-label">Service Type <span class="text-danger">*</span></label>
@@ -173,11 +173,12 @@ include 'includes/header.php';
                             <?php
                               if(!empty($get))
                               {
+                                echo '<option value="N/A">Not Applicable</option>';
                                 while($data = mysqli_fetch_array($get))
                                 {
                                  echo '<option value="'. $data['scid'].'">' .$data['sub_dept_name'].'</option>';      
                                 }
-                              }else{ echo '<option value="N/A">N/A</option>';}
+                              }else{ echo '<option value="">No record found</option>';}
                             ?>
                           </select>
                         <span class="text-danger">(if any)</span>

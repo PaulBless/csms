@@ -11,7 +11,7 @@
             <div class="modal-body">
             <form class="form-horizontal" id="add_enquiry" action="add-request.php" method="POST">
                     <?php require_once('includes/conn.php'); ?>
-                    
+                    <input type="hidden" name="enquiryID" id="enquiryID" class="form-control" value="<?php echo mt_rand(1000,9999) ?>">
                     <div class="form-group">
                         <label for="firstname" class="col-sm-3 control-label">Firstname <span class="text-danger">*</span></label>
                         <div class="col-sm-7">
@@ -119,11 +119,12 @@
                             <?php
                               if(!empty($get))
                               {
+                                echo '<option value="N/A">Not Applicable</option>';
                                 while($data = mysqli_fetch_array($get))
                                 {
                                  echo '<option value="'. $data['scid'].'">' .$data['sub_dept_name'].'</option>';      
                                 }
-                              }else{ echo '<option value="N/A">N/A</option>';}
+                              }else{ echo '<option value="">No record found</option>';}
                             ?>
                           </select>
                         <span class="text-danger">(if any)</span>
@@ -195,8 +196,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-              <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Delete</button>
+              <button type="button" class="btn btn-default btn-flat pull-right" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <!-- <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Delete</button> -->
               </form>
             </div>
         </div>

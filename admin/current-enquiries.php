@@ -13,7 +13,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Service Requests for <span class="text-danger"><?php echo date('Y') ?></span>
+        Service Requests for : <span class="text-danger"><?php echo date('Y') ?></span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -50,40 +50,49 @@
 
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover">
-                <thead>
+            <table id="example1" class="table table-bordered table-hover" width="100%">
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th>No</th>
-                  <th>Lastname</th>
-                  <th>Firstname</th>
-                  <th>Mobile No</th>
-                  <th>Location</th>
-                  <th>Action</th>
+                  <th class="hidden">ID</th>
+                  <th>Type</th>
+                  <th>Department</th>
+                  <th>Client Name</th>
+                  <th>Entered By</th>
+                  <th>Visit Reason / Service Details</th>
+                  <th>Date Created</th>
+                  <th>Actions</th>
                 </thead>
                 <tbody>
                   <?php
-                  $cnt = 1;
-                    $sql = "SELECT * FROM `clients`";
+                    // $sql = "SELECT * FROM `enquiries` ";
+                    $cnt = 1;
+                    $this_year = date('Y');
+                    $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
+                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN `enquiry_type` ON `enquiries`.`et_id`=`enquiry_type`.`etid` INNER JOIN `departments` ON `enquiries`.`dept_id`=`departments`.`did` INNER JOIN `clients` ON `enquiries`.`client_id`=`clients`.`cid` INNER JOIN `users` ON `enquiries`.`user_id`=`users`.`uid` WHERE YEAR(`enquiries`.`created_on`)='$this_year' ORDER BY `enquiries`.`created_on` DESC";
                     $query = $conn->query($sql);
                     if(!empty($query)){
-                      while($row = $query->fetch_assoc()){  
-                         $fetch =mysqli_query($conn, "SELECT `loc_name` FROM `locations` WHERE lid='".$row['location_id']."'");
-                         $get = mysqli_fetch_assoc($fetch);
+                        while($row = $query->fetch_assoc()){
                         echo "
-                        <tr>
-                        <td>".$cnt."</td>
-                        <td>".$row['lastname']."</td>
-                        <td>".$row['firstname']."</td>
-                        <td>".$row['mobileno']." </td>
-                        <td>".$get['loc_name']."</td>
-                          <td>
-                            <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['cid']."'><i class='fa fa-eye'></i> View</button>
-                            <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['cid']."'><i class='fa fa-trash'></i> Delete</button>
-                          </td>
-                        </tr>
-                      ";
-                      $cnt +=1;
+                            <tr>
+                            <td>".$cnt."</td>
+                            <td class='hidden'>".$row['eid']."</td>
+                            <td>".$row['name']."</td>
+                            <td>".$row['dept_name']."</td>
+                            <td>".$row['fullname']."</td>
+                            <td>".$row['username']."</td>
+                            <td>".$row['reason']."</td>
+                            <td>".date('d M, Y',strtotime ($row['date']))."</td>
+                            <td>
+                                <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-edit'></i> Edit</button>
+                                <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['eid']."'><i class='fa fa-trash'></i> Delete</button>
+                            </td>
+                            </tr>
+                        ";
+                        $cnt += 1;
+                        }
                     }
-                  }
                   ?>
                 </tbody>
               </table>

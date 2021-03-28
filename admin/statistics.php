@@ -1,6 +1,5 @@
-<?php // include 'includes/session.php'; ?>
-<?php include 'includes/slugify.php'; ?>
 <?php include 'includes/conn.php'; ?>
+<?php include 'includes/sess.php'; ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -12,9 +11,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <!-- <h1>
-        Upper West Akim District Assembly | Client Management System 
-      </h1> -->
+      <h1>
+        Statistics 
+      </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Statistics</li>
@@ -28,7 +27,6 @@
           echo "
             <div class='alert alert-danger alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-warning'></i> Error!</h4>
               ".$_SESSION['error']."
             </div>
           ";
@@ -38,7 +36,6 @@
           echo "
             <div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-check'></i> Success!</h4>
               ".$_SESSION['success']."
               </div>
               ";

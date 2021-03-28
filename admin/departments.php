@@ -71,7 +71,9 @@
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered" width="">
-                <thead>
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th class="hidden"></th>
                   <th>Department</th>
                   <th>Description</th>

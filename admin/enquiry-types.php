@@ -67,7 +67,9 @@
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered">
-                <thead>
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th class="hidden">ID</th>
                   <th>Service Type Name</th>
                   <th>Description</th>

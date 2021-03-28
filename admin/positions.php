@@ -50,7 +50,9 @@
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered">
-                <thead>
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th class="hidden"></th>
                   <th>Description</th>
                   <th>Maximum Vote</th>

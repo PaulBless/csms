@@ -66,24 +66,27 @@
               <a href="#addnew" data-toggle="modal" data-target="" class=" btn btn-primary btn-md btn-flat pull-right"><i class="fa fa-plus"></i> Add Service Request</a>
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover">
-                <thead>
+              <table id="example1" class="table table-bordered table-hover" width="100%">
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th>No</th>
                   <th class="hidden">ID</th>
                   <th>Type</th>
                   <th>Department</th>
                   <th>Client Name</th>
-                  <th>Entered By</th>
-                  <th>Visit Reason/Details</th>
+                  <th>Served By</th>
+                  <th>Service ID</th>
+                  <th>Visit Reason / Service Details</th>
                   <th>Date Created</th>
-                  <th>Actions</th>
+                  <th>Action</th>
                 </thead>
                 <tbody>
                   <?php
                     // $sql = "SELECT * FROM `enquiries` ";
                     $cnt = 1;
                     $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
-                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid";
+                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`enquiryid` AS `service_id`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                         while($row = $query->fetch_assoc()){
@@ -95,6 +98,7 @@
                             <td>".$row['dept_name']."</td>
                             <td>".$row['fullname']."</td>
                             <td>".$row['username']."</td>
+                            <td>".$row['service_id']."</td>
                             <td>".$row['reason']."</td>
                             <td>".date('d M, Y',strtotime ($row['date']))."</td>
                             <td>

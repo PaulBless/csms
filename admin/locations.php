@@ -69,7 +69,9 @@
             </div>
             <div class="box-body" >
               <table id="example1" class="table table-bordered">
-                <thead>
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th>No.</th>
                   <th class="hidden">ID</th>
                   <th>Location Name</th>

@@ -51,7 +51,9 @@
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered">
-                <thead>
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th>No</th>
                   <th>Lastname</th>
                   <th>Firstname</th>

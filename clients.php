@@ -53,7 +53,9 @@
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-hover">
-                <thead>
+                <thead class="bg-blue" style="color: black;">
+
+
                   <th>No</th>
                   <th>Full Name</th>
                   <th>Mobile No</th>

@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS `users`(
 
 
 -- Table structure for table `client`
---
 CREATE TABLE IF NOT EXISTS `clients`(
   `cid` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(50) NOT NULL,
@@ -56,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `clients`(
 -- --------------------------------------------------------
 
 -- Table structure for table `locations`
---
 CREATE TABLE IF NOT EXISTS `locations`(
   `lid` int(11) NOT NULL AUTO_INCREMENT,
   `loc_name` varchar(50) NOT NULL,
@@ -68,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `locations`(
 
 
 -- Table structure for table `enquiry_types`
---
 CREATE TABLE IF NOT EXISTS `enquiry_type`(
   `etid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -80,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `enquiry_type`(
 
 
 -- Table structure for table `enquiries`
---
 CREATE TABLE IF NOT EXISTS `enquiries` (
   `eid` int(11) NOT NULL AUTO_INCREMENT,
   `et_id` int(11) NOT NULL, -- enquiry_type id foreign_key
@@ -89,13 +85,14 @@ CREATE TABLE IF NOT EXISTS `enquiries` (
   `user_id` int(11) NOT NULL, -- user_id foreign key
   `reason` varchar(1500) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `enquiryid` varchar(20) NOT NULL,
+  `sub_unit_id` int(11) NOT NULL, -- sub category_id foreign key
   PRIMARY KEY (`eid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------
 
 -- Table structure for table `departments`
---
 CREATE TABLE IF NOT EXISTS `departments`(
   `did` int(11) NOT NULL AUTO_INCREMENT,
   `dept_name` varchar(50) NOT NULL,
@@ -107,7 +104,6 @@ CREATE TABLE IF NOT EXISTS `departments`(
 -- -----------------------------------------------------------
 
 -- Table structure for table `admin`
---
 CREATE TABLE IF NOT EXISTS `sub_category`(
   `scid` int(11) NOT NULL AUTO_INCREMENT,
   `dept_id` int(11) NOT NULL, -- dept_id foreign key
@@ -118,7 +114,6 @@ CREATE TABLE IF NOT EXISTS `sub_category`(
 -- ----------------------------------------------------------------
 
 -- Table structure for table `settings`
---
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -127,5 +122,32 @@ CREATE TABLE IF NOT EXISTS `settings` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
+
 -- ------------------------------------------------------------
+
+--  SET TABLE CONTSTRAINTS & INDEXES ------------------------
+
+-- Table constraints for clients
+--- Set key pairs
+ALTER TABLE `clients`
+ ADD KEY `location_id` (`location_id`),
+
+  -- Table constraints for enquiries
+  -- Set key pairs
+ALTER TABLE `enquiries`
+ ADD KEY `et_id` (`et_id`),
+  ADD KEY `dept_id` (`dept_id`);
+  ADD KEY `user_id` (`user_id`);
+  ADD KEY `client_id` (`client_id`);
+
+-- Add Foreign key constraints
+ALTER TABLE `clients`
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`lid`);
+
+-- Add foreign key constraints
+ALTER TABLE `enquiries`
+  ADD CONSTRAINT `enquiries_ibfk_1` FOREIGN KEY (`et_id`) REFERENCES `enquiry_type` (`etid`);
+  ADD CONSTRAINT `enquiries_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients` (`cid`);
+  ADD CONSTRAINT `enquiries_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`uid`);
+  ADD CONSTRAINT `enquiries_ibfk_4` FOREIGN KEY (`dept_id`) REFERENCES `departments` (`did`);
 

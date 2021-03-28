@@ -105,7 +105,7 @@
                 }else{ echo "<h3>0</h3>";}
               ?>
 
-              <p><b><?php echo date('Y')?></b> Total Enquiries </p>
+              <p><b><?php echo date('Y')?></b> Total Service Requests </p>
             </div>
             <div class="icon">
               <i class="fa fa-briefcase"></i>
@@ -125,7 +125,7 @@
                 }else{ echo "<h3>0</h3>";}
               ?>
 
-              <p>All-Time Enquiries</p>
+              <p>All-Time Service Requests</p>
             </div>
             <div class="icon">
               <i class="fa fa-folder-open"></i>

@@ -18,6 +18,7 @@ if(isset($_POST['add']))
     $get_department = trim(htmlspecialchars($_POST['department_id']));
     $get_servicetype = trim(htmlspecialchars($_POST['enquirytype_id']));
     $get_subunit = trim(htmlspecialchars($_POST['subcategory_id']));
+    $get_enquiry_id = trim(htmlspecialchars($_POST['enquiryID']));
 
     // variable for form inputs
     $client_fname = ucwords($clean_fname);
@@ -36,7 +37,7 @@ if(isset($_POST['add']))
         //get inserted record id
         $client_id = $conn->insert_id;
         // now save enquiry details
-        $sql = "INSERT INTO `enquiries` (`et_id`, `dept_id`, `client_id`, `user_id`, `reason`, `created_on`) VALUES ('$enquiry_type', '$dept_id', '$client_id', '$userid', '$enquiry_detail', CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO `enquiries` (`et_id`, `dept_id`, `client_id`, `user_id`, `reason`, `created_on`, `enquiryid`) VALUES ('$enquiry_type', '$dept_id', '$client_id', '$userid', '$enquiry_detail', CURRENT_TIMESTAMP, '$get_enquiry_id')";
         $stmt = $conn->prepare($sql);
         $stmt ->execute();
         // if($conn->query($sql)){
