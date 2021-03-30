@@ -47,22 +47,18 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-
+            <button class="btn btn-warning btn-md pull-right print" id="print"><i class="fa fa-print"></i> Print</button>
             </div>
-            <div class="box-body">
+            <div class="box-body" id="printdoc">
             <table id="example1" class="table table-bordered table-hover" width="100%">
                 <thead class="bg-blue" style="color: black;">
-
-
                   <th>No</th>
-                  <th class="hidden">ID</th>
                   <th>Type</th>
                   <th>Department</th>
                   <th>Client Name</th>
                   <th>Visit Reason / Service Details</th>
                   <th>Entered By</th>
                   <th>Date Created</th>
-                  <th>Actions</th>
                 </thead>
                 <tbody>
                   <?php
@@ -77,17 +73,13 @@
                         echo "
                             <tr>
                             <td>".$cnt."</td>
-                            <td class='hidden'>".$row['eid']."</td>
                             <td>".$row['name']."</td>
                             <td>".$row['dept_name']."</td>
                             <td>".$row['fullname']."</td>
                             <td>".$row['reason']."</td>
                             <td>".$row['username']."</td>
                             <td>".date('d M, Y',strtotime ($row['date']))."</td>
-                            <td>
-                                <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-edit'></i> Edit</button>
-                                <button class='btn btn-danger btn-sm delete btn-flat ' data-id='".$row['eid']."'><i class='fa fa-trash'></i> Delete</button>
-                            </td>
+                         
                             </tr>
                         ";
                         $cnt += 1;
@@ -101,6 +93,16 @@
         </div>
       </div>
     </section>   
+
+    <div class="details" style="display:none;">
+        <?php include('../includes/appsettings.php') ?>
+        <div style="text-align: center; text-transform: uppercase;">
+          <h3><?php if(!empty($app['name'])) echo $app['name']; else echo 'Client Management System' ?></h3>
+          <p><b> Reports of Service Requests for <?php echo date('Y') ?></b></p>
+        </div>
+     
+    </div>
+
   </div>
 
 <!-- </div> -->
@@ -136,12 +138,11 @@ function getRow(id){
     data: {id:id},
     dataType: 'json',
     success: function(response){
-      $('.id').val(response.cid);
-      $('#edit_firstname').val(response.firstname);
-      $('#edit_lastname').val(response.lastname);
-      $('#edit_mobile').val(response.mobileno);
-      $('#edit_location').val(response.loc_name);
-      $('.fullname').html(response.firstname+' '+response.lastname);
+      $('.id').val(response.eid);
+      $('#edit_enqname').val(response.reason);
+      $('#edit_date').val(response.created_on);
+      $('#edit_enqid').val(response.enquiryid);
+      $('.fullname').html(response.reason+', (Service ID: ) '+response.enquiryid);
     }
   });
 }
@@ -154,5 +155,25 @@ function loading(){
   }, 1500);
 }
 </script>
+
+<script>
+  $('#print').click(function(){
+    start_load();
+    var ns = $('.details').clone()
+    var content = $('#example1').clone()
+    ns.append(content)
+
+    var new_window = window.open('', '', 'height=700, width=900')
+    new_window.document.write(ns.html())
+    new_window.document.close()
+    new_window.print()
+    setTimeout(function(){
+      new_window.close()
+      end_load()
+    }, 500)
+  })
+</script>
+
+
 </body>
 </html>

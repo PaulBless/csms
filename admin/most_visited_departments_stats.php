@@ -57,7 +57,7 @@
       </div>
 
       <?php
-        $sql = "SELECT * FROM `enquiry_type` ORDER BY `etid` ASC";
+        $sql = "SELECT * FROM `departments` ORDER BY `did` ASC";
         $query = $conn->query($sql);
         $inc = 2;
         if(!empty($query)){
@@ -68,11 +68,11 @@
               <div class='col-sm-6'>
                 <div class='box box-solid'>
                   <div class='box-header with-border'>
-                    <h4 class='box-title'><b>".$row['name']."</b></h4>
+                    <h4 class='box-title'><b>".$row['dept_name']."</b></h4>
                   </div>
                   <div class='box-body'>
                     <div class='chart'>
-                      <canvas id='".($row['name'])."' style='height:200px'></canvas>
+                      <canvas id='".($row['dept_name'])."' style='height:200px'></canvas>
                     </div>
                   </div>
                 </div>
@@ -94,17 +94,17 @@
 
 <?php include 'includes/scripts.php'; ?>
 <?php
-  $sql = "SELECT * FROM `enquiry_type` ORDER BY `etid` ASC";
+  $sql = "SELECT * FROM `departments` ORDER BY `did` ASC";
   $query = $conn->query($sql);
   if(!empty($query)){
   while($row = $query->fetch_assoc()){
-    $sql = "SELECT * FROM `departments`";
+    $sql = "SELECT * FROM `enquiry_type`";
     $cquery = $conn->query($sql);
     $darray = array();
     $earray = array();
     while($crow = $cquery->fetch_assoc()){
-      array_push($darray, $crow['dept_name']);
-      $sql = "SELECT * FROM `enquiries` WHERE dept_id = '".$crow['did']."' AND et_id='".$row['etid']."'";
+      array_push($darray, $crow['name']);
+      $sql = "SELECT * FROM `enquiries` WHERE et_id='".$crow['etid']."'";
       $equery = $conn->query($sql);
       array_push($earray, $equery->num_rows);
     }
@@ -113,8 +113,8 @@
     ?>
     <script>
     $(function(){
-      var rowid = '<?php echo $row['etid']; ?>';
-      var description = '<?php echo ($row['name']); ?>';
+      var rowid = '<?php echo $row['did']; ?>';
+      var description = '<?php echo ($row['_deptname']); ?>';
       var barChartCanvas = $('#'+description).get(0).getContext('2d')
       var barChart = new Chart(barChartCanvas)
       var barChartData = {

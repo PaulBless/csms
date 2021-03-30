@@ -1,9 +1,11 @@
 <?php include 'includes/conn.php'; ?>
 <?php include 'includes/sess.php'; ?>
 <?php include 'includes/header.php'; ?>
+
 <body class="hold-transition skin-blue sidebar-mini" onload="loading()">
 <div id="preloader"></div>
 <div class="wrapper">
+
 
   <?php include 'includes/navbar.php'; ?>
   <?php include 'includes/menubar.php'; ?>
@@ -47,20 +49,18 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-
+            <button type="button" class="btn btn-warning btn-md print pull-right" id="print"><i class="fa fa-print"></i> Print</button>
             </div>
-            <div class="box-body">
+            <div class="box-body" id="printdoc">
             <table id="example1" class="table table-bordered table-hover" width="100%">
                 <thead class="bg-blue" style="color: black;">
                   <th>No</th>
-                  <th class="hidden">ID</th>
                   <th>Service ID</th>
                   <th>Client Name</th>
                   <th>Type</th>
                   <th>Department</th>
                   <th>Visit Reason / Service Details</th>
                   <th>Date Created</th>
-                  <th class="hidden">Actions</th>
                 </thead>
                 <tbody>
                   <?php
@@ -73,17 +73,12 @@
                         echo "
                             <tr>
                             <td>".$cnt."</td>
-                            <td class='hidden'>".$row['eid']."</td>
                             <td>".$row['service_id']."</td>
                             <td>".$row['fullname']."</td>
                             <td>".$row['name']."</td>
                             <td>".$row['dept_name']."</td>
                             <td>".$row['reason']."</td>
                             <td>".date('d M, Y',strtotime ($row['date']))."</td>
-                            <td>
-                                <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-edit'></i> Edit</button>
-                                <button class='btn btn-danger btn-sm delete btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-trash'></i> Delete</button>
-                            </td>
                             </tr>
                         ";
                         $cnt += 1;
@@ -97,7 +92,19 @@
         </div>
       </div>
     </section>   
+
+ 
+    <div class="details" style="display:none;">
+        <?php include('../includes/appsettings.php') ?>
+        <div style="text-align: center; text-transform: uppercase; ">
+          <h3><?php if(!empty($app['name'])) echo $app['name']; else echo 'Client Management System' ?></h3>
+          <p><b>Reports of Visitation Reasons</b></p>
+        </div>
+     
+    </div>
   </div>
+
+
 
 <!-- </div> -->
 
@@ -123,6 +130,7 @@ $(function(){
   });
 
 
+	})
 });
 
 function getRow(id){
@@ -142,13 +150,33 @@ function getRow(id){
   });
 }
 </script>
+
 <script>
-function loading(){
-  $('#preloader').show();
-    setTimeout(function(){
-      $('#preloader').fadeToggle('fast');
-  }, 1500);
-}
+  function loading(){
+    $('#preloader').show();
+      setTimeout(function(){
+        $('#preloader').fadeToggle('fast');
+    }, 1500);
+  }
 </script>
+
+<script>
+  $('#print').click(function(){
+    start_load();
+    var ns = $('.details').clone()
+    var content = $('#example1').clone()
+    ns.append(content)
+
+    var new_window = window.open('', '', 'height=700, width=900')
+    new_window.document.write(ns.html())
+    new_window.document.close()
+    new_window.print()
+    setTimeout(function(){
+      new_window.close()
+      end_load()
+    }, 500)
+  })
+</script>
+
 </body>
 </html>

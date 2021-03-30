@@ -157,15 +157,22 @@
               <form class="form-horizontal" method="POST" action="">
                 <input type="hidden" class="id" name="id" id="id">
                 <div class="form-group">
-                    <label for="edit_enqname" class="col-sm-3 control-label">Service Type name</label>
+                    <label for="edit_enqname" class="col-sm-3 control-label">Service Details / Reason</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" id="edit_enqname" name="edit_enqname" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="edit_desc" class="col-sm-3 control-label">Description</label>
+                    <label for="edit_desc" class="col-sm-3 control-label">Date Created</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" id="edit_desc" name="edit_desc">
+                      <input type="text" class="form-control" id="edit_date" name="edit_date" readonly>
+                    </div>
+                </div>
+                
+               <div class="form-group">
+                    <label for="edit_desc" class="col-sm-3 control-label">Service ID</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="edit_enqid" name="edit_enqid" readonly>
                     </div>
                 </div>
              
@@ -192,12 +199,14 @@
               <form class="form-horizontal" method="POST" action="">
                 <input type="hidden" class="id" name="id" id="id">
                 <div class="text-center">
-                    <h4 class="bold fullname text-danger">Sorry... This request can't be completed because all enquiries and service requests are archieved for future references and reports..</h4>
+                <p>DELETE SERVICE REQUEST</p>
+                    <h4 class="bold fullname text-danger"></h4>
                 </div>
+               <!-- <p>Sorry... This request can't be completed because all enquiries and service requests are archieved for future references and reports..</p>  -->
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-right" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-              <!-- <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Delete</button> -->
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Delete</button>
               </form>
             </div>
         </div>

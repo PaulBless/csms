@@ -28,6 +28,16 @@
 <script src="../bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
+
+<!-- export/print  -->
+<!-- <script src="../export/dataTables.buttons.min.js"></script> -->
+<!-- <script src="../export/jszip.min.js"></script> -->
+<!-- <script src="../export/pdfmake.min.js"></script> -->
+<!-- <script src="../export/vfs_fonts.js"></script> -->
+<!-- <script src="../export/buttons.html5.min.js"></script> -->
+<!-- <script src="../export/buttons.dataTables.min.js"></script> -->
+
+
 <!-- Active Script -->
 <script>
 $(function(){

@@ -1,9 +1,11 @@
 <?php include 'includes/conn.php'; ?>
 <?php include 'includes/sess.php'; ?>
+<?php include '../includes/appsettings.php'; ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini" onload="loading()">
+ <div id="preloader"></div>
 <div class="wrapper">
-<div id="preloader"></div>
+
   <?php include 'includes/navbar.php'; ?>
   <?php include 'includes/menubar.php'; ?>
 
@@ -12,11 +14,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Service Requests List <span class="text-danger">(Enquiries & Complaints) </span>
+        System Settings
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Enquiries</li>
+        <li class="active">Settings</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -40,15 +42,6 @@
           ";
           unset($_SESSION['success']);
         }
-        if(isset($_SESSION['update'])){
-          echo "
-            <div class='alert alert-info alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              ".$_SESSION['update']."
-            </div>
-          ";
-          unset($_SESSION['update']);
-        } 
         if(isset($_SESSION['warning'])){
           echo "
             <div class='alert alert-warning alert-dismissible'>
@@ -58,58 +51,53 @@
           ";
           unset($_SESSION['warning']);
         }
+        if(isset($_SESSION['update'])){
+          echo "
+            <div class='alert alert-info alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              ".$_SESSION['update']."
+            </div>
+          ";
+          unset($_SESSION['update']);
+        }
       ?>
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-              <a href="#addnew" data-toggle="modal" data-target="" class=" btn btn-primary btn-md btn-flat pull-right"><i class="fa fa-plus"></i> Add Service Request</a>
+              <!-- <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-md btn-flat"><i class="fa fa-plus"></i> Add New User</a> -->
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover" width="100%">
+              <table id="example1" class="table table-bordered">
                 <thead class="bg-blue" style="color: black;">
-
-
-                  <th>No</th>
-                  <th class="hidden">ID</th>
-                  <th>Type</th>
-                  <th>Department</th>
-                  <th>Client Name</th>
-                  <th>Service ID</th>
-                  <th>Visit Reason / Service Details</th>
-                  <th>Entry By</th>
-                  <th>Date Created</th>
+                  <th>Name of District</th>
+                  <th>Location</th>
+                  <th>Logo</th>
                   <th>Action</th>
                 </thead>
                 <tbody>
                   <?php
-                    // $sql = "SELECT * FROM `enquiries` ";
-                    $cnt = 1;
-                    $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
-                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`enquiryid` AS `service_id`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid";
+                    $sql = "SELECT * FROM `settings`";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                         while($row = $query->fetch_assoc()){
+                        $image = (!empty($row['logo'])) ? '../images/'.$row['logo'] : '../images/jecmas.png';
                         echo "
                             <tr>
-                            <td>".$cnt."</td>
-                            <td class='hidden'>".$row['eid']."</td>
-                            <td>".$row['name']."</td>
-                            <td>".$row['dept_name']."</td>
-                            <td>".$row['fullname']."</td>
-                            <td>".$row['service_id']."</td>
-                            <td>".$row['reason']."</td>
-                            <td>".$row['username']."</td>
-                            <td>".date('d M, Y',strtotime ($row['date']))."</td>
+                            <td>".($row['name']) ."</td>
+                            <td>".($row['location'])."</td>
                             <td>
-                                <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-edit'></i> Edit</button>
-                                <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['eid']."'><i class='fa fa-trash'></i> Delete</button>
+                                <img src='".$image."' width='30px' height='30px' style='border-radius; 20%'>
+                                <a href='#edit_logo' data-toggle='modal' class='pull-right photo' data-id='".$row['id']."'><span class='fa fa-pencil'></span></a>
+                            </td>
+                            <td>
+                                <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
+                                <button class='btn btn-danger btn-sm delete btn-flat hidden' data-id='".$row['id']."'><i class='fa fa-trash'></i> Delete</button>
                             </td>
                             </tr>
                         ";
-                        $cnt += 1;
                         }
-                    }
+                    } echo "<a href='#settings' data-toggle='modal' class='btn btn-primary btn-md btn-flat pull-right' style='margin: 10px;'>Config Settings </a>";
                   ?>
                 </tbody>
               </table>
@@ -117,15 +105,16 @@
           </div>
         </div>
       </div>
+
+     
+
     </section>   
   </div>
     
-<!-- </div> -->
-
-  <?php include 'includes/enquiry_modal.php'; ?>
   <?php include 'includes/footer.php'; ?>
-
+  <?php include 'includes/settings_modal.php'; ?>
 </div>
+
 <?php include 'includes/scripts.php'; ?>
 <script>
 $(function(){
@@ -143,25 +132,44 @@ $(function(){
     getRow(id);
   });
 
+  $(document).on('click', '.photo', function(e){
+    e.preventDefault();
+    var id = $(this).data('id');
+    getRow(id);
+  });
 
-
-
+ 
 });
+
+
+
+function displayImg(input,_this) {
+	if (input.files && input.files[0]) {
+	  var reader = new FileReader();
+	  reader.onload = function (e) {
+	  $('#cimg').attr('src', e.target.result);
+	  }
+
+	reader.readAsDataURL(input.files[0]);
+  }
+}
 
 function getRow(id){
   $.ajax({
     type: 'POST',
-    url: 'enquiries_row.php',
+    url: 'user_row.php',
     data: {id:id},
     dataType: 'json',
     success: function(response){
-      $('.id').val(response.eid);
-      $('#edit_enqname').val(response.reason);
-      $('#edit_enqid').val(response.enquiryid);
-      $('#edit_date').val(response.created_on);
-      $('#edit_date').html(response.created_on);
-      $('#edit_enqid').html(response.enquiryid);
-      $('.fullname').html(response.reason);
+      $('.id').val(response.uid);
+      $('#edit_firstname').val(response.firstname);
+      $('#edit_lastname').val(response.lastname);
+      $('#edit_password').val(response.password);
+      $('#edit_username').val(response.username);
+      $('#edit_usertype').val(response.user_type);
+      $('#edit_mobile').val(response.mobileno);
+      $('#edit_status').val(response.status);
+      $('.fullname').html(response.firstname+' '+response.lastname);
     }
   });
 }

@@ -15,9 +15,9 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header"> MAIN MENU</li>
       <li class="" style="font-weight: bold;"> <a href="home.php"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> </a></li>
-      <li class="" style="font-weight: bold;"><a href="#settings" data-toggle="modal" ><i class="fa fa-cogs"></i> <span>System Settings</span></a></li>
+      <li class="" style="font-weight: bold;"><a href="settings.php" ><i class="fa fa-cogs"></i> <span>System Settings</span></a></li>
 
-      <li class="header">SETTINGS</li>
+      <li class="header">ACTION</li>
       <li class="" style="font-weight: bold;"><a href="departments.php" ><i class="fa fa-tags"></i> <span>Departments</span></a></li>
       <li class="" style="font-weight: bold;"><a href="enquiry-types.php" ><i class="fa fa-cog"></i> <span>Service Types</span></a></li>
       <li class="" style="font-weight: bold"><a href="locations.php"><i class="fa fa-map-marker"></i> <span>Locations</span></a></li>

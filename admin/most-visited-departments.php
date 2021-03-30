@@ -3,7 +3,8 @@
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini" onload="loading()">
 <div class="wrapper">
-<div id="preloader"></div>
+  <div id="preloader"></div>
+
   <?php include 'includes/navbar.php'; ?>
   <?php include 'includes/menubar.php'; ?>
 
@@ -12,11 +13,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Service Requests List <span class="text-danger">(Enquiries & Complaints) </span>
+       Reports: <span class="text-danger">Most Visited Departments</span> - <?php echo date('Y') ?>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Enquiries</li>
+        <li class="active">Departments</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -26,6 +27,7 @@
           echo "
             <div class='alert alert-danger alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h4><i class='icon fa fa-warning'></i> Error!</h4>
               ".$_SESSION['error']."
             </div>
           ";
@@ -39,7 +41,7 @@
             </div>
           ";
           unset($_SESSION['success']);
-        }
+        }   
         if(isset($_SESSION['update'])){
           echo "
             <div class='alert alert-info alert-dismissible'>
@@ -60,69 +62,60 @@
         }
       ?>
       <div class="row">
+      <!-- departments -->
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-              <a href="#addnew" data-toggle="modal" data-target="" class=" btn btn-primary btn-md btn-flat pull-right"><i class="fa fa-plus"></i> Add Service Request</a>
+              <a href="#addnew" data-toggle="modal" data-target="" class="btn btn-primary btn-md btn-flat"><i class="fa fa-plus"></i> Add Department</a>
+              <a href="#view-sub" data-toggle="modal" data-target="" class="pull-right btn btn-success btn-md btn-flat "><i class="fa fa-eye"></i> View Sub Units</a>
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover" width="100%">
+              <table id="example1" class="table table-bordered" width="">
                 <thead class="bg-blue" style="color: black;">
-
-
-                  <th>No</th>
-                  <th class="hidden">ID</th>
-                  <th>Type</th>
                   <th>Department</th>
-                  <th>Client Name</th>
-                  <th>Service ID</th>
-                  <th>Visit Reason / Service Details</th>
-                  <th>Entry By</th>
-                  <th>Date Created</th>
-                  <th>Action</th>
+                  <th>Description</th>
+                  <th>Tools</th>
                 </thead>
                 <tbody>
                   <?php
-                    // $sql = "SELECT * FROM `enquiries` ";
-                    $cnt = 1;
-                    $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
-                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`enquiryid` AS `service_id`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid";
+                    $sql = "SELECT DISTINCT(`dept_name`), did as deptid, `description` FROM `departments`";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                         while($row = $query->fetch_assoc()){
+                            // $get = "SELECT * FROM `enquiries`";
+                            $sql = "SELECT * FROM `enquiries` WHERE `dept_id` = '".$row['deptid']."' ORDER BY dept_id DESC";
+                            $enq_query = $conn->query($sql);
+                            $dept_array = $enq_query->num_rows;
+                            while($enq_row = $enq_query->fetch_assoc()){
                         echo "
                             <tr>
-                            <td>".$cnt."</td>
-                            <td class='hidden'>".$row['eid']."</td>
-                            <td>".$row['name']."</td>
                             <td>".$row['dept_name']."</td>
-                            <td>".$row['fullname']."</td>
-                            <td>".$row['service_id']."</td>
-                            <td>".$row['reason']."</td>
-                            <td>".$row['username']."</td>
-                            <td>".date('d M, Y',strtotime ($row['date']))."</td>
-                            <td>
-                                <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['eid']."'><i class='fa fa-edit'></i> Edit</button>
-                                <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['eid']."'><i class='fa fa-trash'></i> Delete</button>
+                            <td>".$dept_array."</td>
                             </td>
                             </tr>
                         ";
-                        $cnt += 1;
+                            }
                         }
-                    }
+                    } 
                   ?>
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
-      </div>
+        </div>   
+    
+      </div>  
+      
     </section>   
   </div>
+  
+ 
     
 <!-- </div> -->
 
-  <?php include 'includes/enquiry_modal.php'; ?>
+
+
+  <?php include 'includes/depts_modal.php'; ?>
   <?php include 'includes/footer.php'; ?>
 
 </div>
@@ -143,28 +136,36 @@ $(function(){
     getRow(id);
   });
 
-
+  $(document).on('click', '.view', function(e){
+    e.preventDefault();
+    $('#view-sub').modal('show');
+    var id = $(this).data('id');
+    getUnit(id);
+  }); 
+  
 
 
 });
 
+// function to get departments list
 function getRow(id){
   $.ajax({
     type: 'POST',
-    url: 'enquiries_row.php',
+    url: 'dept_row.php',
     data: {id:id},
     dataType: 'json',
     success: function(response){
-      $('.id').val(response.eid);
-      $('#edit_enqname').val(response.reason);
-      $('#edit_enqid').val(response.enquiryid);
-      $('#edit_date').val(response.created_on);
-      $('#edit_date').html(response.created_on);
-      $('#edit_enqid').html(response.enquiryid);
-      $('.fullname').html(response.reason);
+      $('.id').val(response.did);
+      $('#edit_deptname').val(response.dept_name);
+      $('#edit_desc').val(response.description);
+      $('#edit_desc').html(response.description);
+      $('.fullname').html(response.dept_name);
+      $('#desc').html(response.description);
     }
   });
 }
+
+
 </script>
 
 <script>
