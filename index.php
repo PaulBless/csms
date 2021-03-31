@@ -39,11 +39,11 @@
 
     	<form action="login.php" method="POST" role="" name="login-form" id="login-form">
       		<div class="form-group has-feedback">
-				  <input type="text" class="form-control" name="userid" placeholder="Username" required>
+				  <input type="text" class="form-control" name="userid" placeholder="Enter your username" required>
 				  <span class="glyphicon glyphicon-user form-control-feedback"></span>
       		</div>
           <div class="form-group has-feedback">
-			  <input type="password" class="form-control" name="password" placeholder="Password" required>
+			  <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
 			  <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
       		<div class="row ">

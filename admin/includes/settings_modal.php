@@ -8,7 +8,7 @@
             	<h4 class="modal-title"><b>System Settings</b></h4>
           	</div>
           	<div class="modal-body">
-            	<form class="form-horizontal" method="POST" action="settings.php?return=<?php echo basename($_SERVER['PHP_SELF']); ?>" >
+            	<form class="form-horizontal" method="POST" enctype="multipart/form-data" action="save-settings.php?return=<?php echo basename($_SERVER['PHP_SELF']); ?>" >
           		   <?php require_once('../includes/appsettings.php') ?>
                      <input type="text" name="id" id="id" class="form-control hidden" value="<?php if(!empty($app['id'])) echo $app['id']; ?>">
 
@@ -29,7 +29,7 @@
 					<div class="form-group">
 						<label for="logo" class="col-sm-3 control-label">Logo:</label>
 						<div class="col-sm-7"> 
-						<input type="file" class="form-control" id="logo" name="logo" required>
+						<input type="file" class="form-control" id="logo" name="logo" accept=".jpg, .png, .jpeg, .bmp, |image/*" required>
 						</div>
 					</div>
               

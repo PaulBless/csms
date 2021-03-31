@@ -1,9 +1,7 @@
 <?php include 'includes/conn.php'; ?>
 <?php include 'includes/sess.php'; ?>
 <?php include 'includes/header.php'; ?>
-<body class="hold-transition skin-blue sidebar-mini" onload="loading()">
-<div id="preloader"></div>
-
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <?php include 'includes/navbar.php'; ?>
@@ -14,7 +12,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Reports : <span class="text-danger">All-Time Statistics </span>  
+        Statistics 
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,43 +22,65 @@
 
     <!-- Main content -->
     <section class="content">
-  
+      <?php
+        if(isset($_SESSION['error'])){
+          echo "
+            <div class='alert alert-danger alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              ".$_SESSION['error']."
+            </div>
+          ";
+          unset($_SESSION['error']);
+        }
+        if(isset($_SESSION['success'])){
+          echo "
+            <div class='alert alert-success alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              ".$_SESSION['success']."
+              </div>
+              ";
+              unset($_SESSION['success']);
+            }
+    ?>
+
      
+     
+
     <!-- Statistics Start here -->
       <div class="row">
         <div class="col-xs-12">
-          <h3> 
-          <a href="current-statistics.php" class="btn btn-primary btn-md btn-flat search-stats"> <i class="fa fa-bar-chart" style="margin-right: 3px"></i> View Current Statistics </a>
-          <span class="pull-right" style="margin-bottom: 15px;">
-              <a href="print.php" class="btn btn-warning btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
+          <h3 style="margin-bottom: 20px;"> 
+          <a href="departments-visited-most.php" class="btn btn-info btn-md btn-flat switch-classic"> <i class="fa fa-refresh"></i> Switch To Classic View</a>
+          <span class="pull-right" style="margin-bottom: 15px;"><a href="print.php" class="btn btn-warning btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
             </span>
           </h3>
         </div>
       </div>
 
       <?php
-        $sql = "SELECT * FROM `enquiry_type` ORDER BY `etid` ASC";
-        $query = $conn->query($sql);
-        if(!empty($query)){
-          while($row = $query->fetch_assoc()){
-            echo "<div class='row'>";
+        $sql = "SELECT * FROM `departments` ORDER BY `did` ASC";
+        $query_dept = $conn->query($sql);
+        if(!empty($query_dept)){
+          while($row_dept = $query_dept->fetch_assoc()){
+            // echo "<div class='row'>";
             echo "
-              <div class='col-sm-12'>
+              <div class='col-sm-6'>
                 <div class='box box-solid'>
                   <div class='box-header with-border'>
-                    <h4 class='box-title'><b>".$row['name']."</b></h4>
+                    <h4 class='box-title'><b>".$row_dept['dept_name']."</b></h4>
                   </div>
                   <div class='box-body'>
                     <div class='chart'>
-                      <canvas id='".($row['name'])."' style='height:250px'></canvas>
+                      <canvas id='".($row_dept['dept_name'])."' style='height:200px'></canvas>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> 
             ";
-            echo "</div>";  
+          //  echo "</div>";  
           }
         }
+        // if($inc == 1) echo "<div class='col-sm-6'></div></div>";
       ?>
 
       </section>
@@ -72,43 +92,32 @@
 <!-- ./wrapper -->
 
 <?php include 'includes/scripts.php'; ?>
-
-<script>
-function loading(){
-  $('#preloader').show();
-    setTimeout(function(){
-      $('#preloader').fadeToggle('fast');
-  }, 1500);
-}
-</script>
-
-
 <?php
-  $sql = "SELECT * FROM `enquiry_type` ORDER BY `etid` ASC";
+  $sql = "SELECT * FROM `departments` ORDER BY `did` ASC";
   $query = $conn->query($sql);
   if(!empty($query)){
   while($row = $query->fetch_assoc()){
-    $sql = "SELECT * FROM `departments`";
+    $sql = "SELECT * FROM `enquiry_type`";
     $cquery = $conn->query($sql);
-    $darray = array();
+    $type_array = array();
     $earray = array();
     while($crow = $cquery->fetch_assoc()){
-      array_push($darray, $crow['dept_name']);
-      $sql = "SELECT * FROM `enquiries` WHERE dept_id = '".$crow['did']."' AND et_id='".$row['etid']."'";
+      array_push($type_array, $crow['name']);
+      $sql = "SELECT * FROM `enquiries` WHERE `et_id`='".$crow['etid']."' AND `dept_id`='".$row_dept['did']."'";
       $equery = $conn->query($sql);
       array_push($earray, $equery->num_rows);
     }
-    $darray = json_encode($darray);
+    $type_array = json_encode($type_array);
     $earray = json_encode($earray);
     ?>
     <script>
     $(function(){
-      var rowid = '<?php echo $row['etid']; ?>';
-      var description = '<?php echo ($row['name']); ?>';
+      var rowid = '<?php echo $row['did']; ?>';
+      var description = '<?php echo ($row['dept_name']); ?>';
       var barChartCanvas = $('#'+description).get(0).getContext('2d')
       var barChart = new Chart(barChartCanvas)
       var barChartData = {
-        labels  : <?php echo $darray; ?>,
+        labels  : <?php echo $type_array; ?>,
         datasets: [
           {
             label               : 'Enquiries',

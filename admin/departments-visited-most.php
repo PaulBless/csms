@@ -13,7 +13,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Most Visited Departments for : <span class="text-danger"><?php echo date('Y') ?></span>
+        Departments Visited Most for : <span class="text-danger"><?php echo date('Y') ?></span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -46,9 +46,9 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header with-border">
-            <a href="most_visited_departments_stats.php" class="btn btn-success btn-md btn-flat classic_view" id="classic_view"> <i class="fa fa-refresh"></i> Switch To Statistic View</a>
-            <button class="btn btn-warning btn-md pull-right print" id="print"><i class="fa fa-print"></i> Print</button>
+            <div class="box-header with-border" style="margin-bottom: 20px;">
+              <a href="departments-visited-most-classic.php" class="btn btn-success btn-md btn-flat classic_view" id="classic_view"> <i class="fa fa-refresh"></i> Switch To Classic View</a>
+              <button class="btn btn-warning btn-md pull-right print" id="print"><i class="fa fa-print"></i> Print</button>
             </div>
             <div class="box-body" id="printdoc">
             <table id="example1" class="table table-bordered table-hover" width="100%">
@@ -60,22 +60,23 @@
                 <tbody>
                   <?php
                     $cnt = 1;
-                    // $sql = "SELECT dept_name, COUNT(DISTINCT e.dept_id) FROM enquiries e LEFT JOIN departments d ON (e.dept_id = d.did) GROUP BY e.eid, d.dept_name";
-                    $sql = "SELECT DISTINCT(`dept_name`), `did` AS `deptid` FROM `departments` ORDER BY `did` DESC";
+                    $curr_year = date('Y');
+                    //get count of visits
+                    $sql = "SELECT `dept_id`, COUNT(*) as `total_visit` FROM `enquiries` WHERE Year(created_on)='$curr_year'
+                    GROUP BY `dept_id` ORDER BY `total_visit` DESC";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                     while($row = $query->fetch_assoc()){
-                      $each_department = $row['dept_name'];
-                      $sql = "SELECT dept_id FROM `enquiries` WHERE `dept_id` = '".$row['deptid']."' ORDER BY dept_id DESC";
-                      // $sql = "SELECT * FROM `enquiries` WHERE `dept_id` = '".$row['deptid']."' ORDER BY dept_id DESC";
+                      $each_department_visitCount = $row['total_visit'];
+                      $sql = "SELECT `dept_name` FROM `departments` WHERE `did` = '".$row['dept_id']."' ";
                       $enq_query = $conn->query($sql);
                       while($enq_row = $enq_query->fetch_assoc()){
-                        $total_visit = $enq_query->num_rows;
+                        $each_department = $enq_row['dept_name'];
                         echo "
                             <tr>
                             <td>".$cnt."</td>
                             <td>".$each_department."</td>
-                            <td>".$total_visit."</td>
+                            <td>".$each_department_visitCount."</td>
                          
                             </tr>
                         ";

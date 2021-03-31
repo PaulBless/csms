@@ -13,7 +13,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Complaints for : <span class="text-danger"><?php echo date('Y') ?></span>
+        Reports : <span class="text-danger">Requests List </span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -47,53 +47,64 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
+            <button class="btn btn-warning btn-md pull-right print" id="print"><i class="fa fa-print"></i> Print</button>
 
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-hover" width="100%">
                 <thead class="bg-blue" style="color: black;">
-
-
-                  <th>No</th>
-                  <th>Lastname</th>
-                  <th>Firstname</th>
-                  <th>Mobile No</th>
-                  <th>Location</th>
-                  <th>Action</th>
+                  <th>S/N</th>
+                  <th>Type</th>
+                  <th>Department</th>
+                  <th>Client Name</th>
+                  <th>Service ID</th>
+                  <th>Service Details / Reason</th>
+                  <th>Reg. Date</th>
                 </thead>
                 <tbody>
                   <?php
+                  // $sql = "SELECT * FROM `enquiries` ";
                   $cnt = 1;
-                    $sql = "SELECT * FROM `clients`";
-                    $query = $conn->query($sql);
-                    if(!empty($query)){
-                      while($row = $query->fetch_assoc()){  
-                         $fetch =mysqli_query($conn, "SELECT `loc_name` FROM `locations` WHERE lid='".$row['location_id']."'");
-                         $get = mysqli_fetch_assoc($fetch);
-                        echo "
-                        <tr>
-                        <td>".$cnt."</td>
-                        <td>".$row['lastname']."</td>
-                        <td>".$row['firstname']."</td>
-                        <td>".$row['mobileno']." </td>
-                        <td>".$get['loc_name']."</td>
-                          <td>
-                            <button class='btn btn-success btn-sm edit btn-flat hidden' data-id='".$row['cid']."'><i class='fa fa-eye'></i> View</button>
-                            <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['cid']."'><i class='fa fa-trash'></i> Delete</button>
-                          </td>
-                        </tr>
+                  $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
+                  CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`enquiryid` AS `service_id`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` 
+                  INNER JOIN enquiry_type ON `enquiries`.`et_id`=`enquiry_type`.`etid` INNER JOIN `departments` ON `enquiries`.`dept_id`=`departments`.`did` INNER JOIN `clients` ON `enquiries`.`client_id`=`clients`.`cid` 
+                  INNER JOIN `users` ON `enquiries`.`user_id`=`users`.`uid` ORDER BY `enquiry_type`.`name` ASC, `departments`.`dept_name` ASC";
+                  $query = $conn->query($sql);
+                  if(!empty($query)){
+                      while($row = $query->fetch_assoc()){
+                      echo "
+                          <tr>
+                          <td>".$cnt."</td>
+                          <td>".$row['name']."</td>
+                          <td>".$row['dept_name']."</td>
+                          <td>".$row['fullname']."</td>
+                          <td class='text-primary'>".$row['service_id']."</td>
+                          <td>".$row['reason']."</td>
+                          <td class='text-success'>".date('d M, Y',strtotime ($row['date']))."</td>
+                          
+                          </tr>
                       ";
-                      $cnt +=1;
-                    }
+                      $cnt += 1;
+                      }
                   }
-                  ?>
+                ?>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-    </section>   
+    </section>  
+
+    <!-- printing of report details   -->
+    <div class="details" style="display:none;">
+        <?php include('../includes/appsettings.php') ?>
+        <div style="text-align: center; text-transform: uppercase;">
+          <h3><?php if(!empty($app['name'])) echo $app['name']; else echo 'Client Management System' ?></h3>
+          <p><b> Reports - Service Requests List </b></p>
+        </div>
+     
+    </div>
   </div>
 
 <!-- </div> -->
@@ -139,6 +150,8 @@ function getRow(id){
   });
 }
 </script>
+
+<!-- show ajax-loader  -->
 <script>
 function loading(){
   $('#preloader').show();
@@ -147,5 +160,25 @@ function loading(){
   }, 1500);
 }
 </script>
+
+<!-- print document -->
+<script>
+  $('#print').click(function(){
+    start_load();
+    var ns = $('.details').clone()
+    var content = $('#example1').clone()
+    ns.append(content)
+
+    var new_window = window.open('', '', 'height=700, width=900')
+    new_window.document.write(ns.html())
+    new_window.document.close()
+    new_window.print()
+    setTimeout(function(){
+      new_window.close()
+      end_load()
+    }, 500)
+  })
+</script>
+
 </body>
 </html>

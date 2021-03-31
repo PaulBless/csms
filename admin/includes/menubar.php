@@ -27,12 +27,12 @@
       <li class="" style="font-weight: bold;"><a href="clients.php"><i class="fa fa-users"></i> <span>Clients </span></a></li>
       <li class="" style="font-weight: bold;"><a href="enquiries.php"><i class="fa fa-folder-open"></i> <span>All Service Requests</span></a></li>
       
-      <li class="header">REPORTS</li>
+      <li class="header">REPORTS VIEW</li>
       <li class="" style="font-weight: bold;"><a href="current-enquiries.php"><span class="glyphicon glyphicon-retweet"></span> <span>Current Service Requests</span></a></li>
-      <li class="" style="font-weight: bold;"><a href="complaints.php"><span class="glyphicon glyphicon-bookmark"></span> <span>Complaints Types</span></a></li>
+      <li class="" style="font-weight: bold;"><a href="complaints.php"><span class="glyphicon glyphicon-bookmark"></span> <span>Service Types List</span></a></li>
       <li class="" style="font-weight: bold;"><a href="statistics.php"><span class="fa fa-bar-chart"></span> <span> Statistics </span></a></li>
-      <li class="" style="font-weight: bold;"><a href="departmentsvisited.php"><span class="fa fa-codepen"></span> <span>Most Visited Departments </span></a></li>
-      <li class="" style="font-weight: bold;"><a href="reasonsforvisit.php"><span class="glyphicon glyphicon-link"></span> <span>Reasons for Visits </span></a></li>
+      <li class="" style="font-weight: bold;"><a href="departments-visited-most.php"><span class="fa fa-codepen"></span> <span>Most Visited Departments </span></a></li>
+      <li class="" style="font-weight: bold;"><a href="service-request-reasons.php"><span class="glyphicon glyphicon-link"></span> <span>Reasons for Visits </span></a></li>
     </ul>
       
   </section>

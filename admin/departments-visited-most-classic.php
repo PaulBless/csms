@@ -3,7 +3,6 @@
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini" onload="loading()">
 <div id="preloader"></div>
-
 <div class="wrapper">
 
   <?php include 'includes/navbar.php'; ?>
@@ -14,23 +13,23 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Reports : <span class="text-danger">All-Time Statistics </span>  
+       Reports : Departments Visited - <span class="text-danger">Classic View</span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Statistics</li>
+        <li class="active"> Statistics</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-  
      
+
     <!-- Statistics Start here -->
       <div class="row">
         <div class="col-xs-12">
           <h3> 
-          <a href="current-statistics.php" class="btn btn-primary btn-md btn-flat search-stats"> <i class="fa fa-bar-chart" style="margin-right: 3px"></i> View Current Statistics </a>
+          <a href="departments-visited-most.php" class="btn btn-info btn-md btn-flat original-view"> <i class="fa fa-refresh"></i> Switch To Original View</a>
           <span class="pull-right" style="margin-bottom: 15px;">
               <a href="print.php" class="btn btn-warning btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
             </span>
@@ -82,7 +81,6 @@ function loading(){
 }
 </script>
 
-
 <?php
   $sql = "SELECT * FROM `enquiry_type` ORDER BY `etid` ASC";
   $query = $conn->query($sql);
@@ -94,7 +92,8 @@ function loading(){
     $earray = array();
     while($crow = $cquery->fetch_assoc()){
       array_push($darray, $crow['dept_name']);
-      $sql = "SELECT * FROM `enquiries` WHERE dept_id = '".$crow['did']."' AND et_id='".$row['etid']."'";
+      $curr_year = date('Y');
+      $sql = "SELECT * FROM `enquiries` WHERE dept_id = '".$crow['did']."' AND et_id='".$row['etid']."' AND Year(created_on)='".$curr_year."'";
       $equery = $conn->query($sql);
       array_push($earray, $equery->num_rows);
     }

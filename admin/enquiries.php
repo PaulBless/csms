@@ -12,7 +12,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Service Requests List <span class="text-danger">(Enquiries & Complaints) </span>
+        Reports : Service Requests <span class="text-danger"> - All</span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -68,10 +68,7 @@
             <div class="box-body">
               <table id="example1" class="table table-bordered table-hover" width="100%">
                 <thead class="bg-blue" style="color: black;">
-
-
                   <th>No</th>
-                  <th class="hidden">ID</th>
                   <th>Type</th>
                   <th>Department</th>
                   <th>Client Name</th>
@@ -86,14 +83,15 @@
                     // $sql = "SELECT * FROM `enquiries` ";
                     $cnt = 1;
                     $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
-                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`enquiryid` AS `service_id`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN enquiry_type ON enquiries.et_id=enquiry_type.etid INNER JOIN departments ON enquiries.dept_id=departments.did INNER JOIN clients ON enquiries.client_id=clients.cid INNER JOIN users ON enquiries.user_id=users.uid";
+                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`enquiryid` AS `service_id`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` 
+                    INNER JOIN enquiry_type ON `enquiries`.`et_id`=`enquiry_type`.`etid` INNER JOIN `departments` ON `enquiries`.`dept_id`=`departments`.`did` INNER JOIN `clients` ON `enquiries`.`client_id`=`clients`.`cid` 
+                    INNER JOIN `users` ON `enquiries`.`user_id`=`users`.`uid` ORDER BY `enquiry_type`.`name` ASC, `departments`.`dept_name` ASC";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                         while($row = $query->fetch_assoc()){
                         echo "
                             <tr>
                             <td>".$cnt."</td>
-                            <td class='hidden'>".$row['eid']."</td>
                             <td>".$row['name']."</td>
                             <td>".$row['dept_name']."</td>
                             <td>".$row['fullname']."</td>

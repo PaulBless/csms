@@ -62,13 +62,11 @@ if(isset($_SESSION['user']))
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-              <!-- <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Add New Client</a> -->
+              <a href="lodge_service_request.php" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Add New Service Request</a>
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-hover" width="100%">
                 <thead class="bg-blue" style="color: black;">
-
-
                   <th>S/N</th>
                   <th>Type</th>
                   <th>Department</th>

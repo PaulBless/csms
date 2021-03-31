@@ -13,7 +13,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Service Requests for : <span class="text-danger"><?php echo date('Y') ?></span>
+       Reports : Service Requests for - <span class="text-danger"><?php echo date('Y') ?></span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -66,7 +66,9 @@
                     $cnt = 1;
                     $this_year = date('Y');
                     $sql = "SELECT `enquiries`.`eid` AS `eid`, `enquiry_type`.`name` AS `name`, `departments`.`dept_name` AS `dept_name`, CONCAT(`clients`.`firstname`,' ',`clients`.`lastname`) AS `fullname`, 
-                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN `enquiry_type` ON `enquiries`.`et_id`=`enquiry_type`.`etid` INNER JOIN `departments` ON `enquiries`.`dept_id`=`departments`.`did` INNER JOIN `clients` ON `enquiries`.`client_id`=`clients`.`cid` INNER JOIN `users` ON `enquiries`.`user_id`=`users`.`uid` WHERE YEAR(`enquiries`.`created_on`)='$this_year' ORDER BY `enquiries`.`created_on` DESC";
+                    CONCAT(`users`.`firstname`, ' ',`users`.`lastname`) AS `username`, `enquiries`.`reason` AS `reason`, `enquiries`.`created_on` AS `date`  FROM `enquiries` INNER JOIN `enquiry_type` ON 
+                    `enquiries`.`et_id`=`enquiry_type`.`etid` INNER JOIN `departments` ON `enquiries`.`dept_id`=`departments`.`did` INNER JOIN `clients` ON `enquiries`.`client_id`=`clients`.`cid` INNER JOIN `users` ON 
+                    `enquiries`.`user_id`=`users`.`uid` WHERE YEAR(`enquiries`.`created_on`)='$this_year' ORDER BY  `enquiry_type`.`name` ASC, `enquiries`.`created_on` ASC";
                     $query = $conn->query($sql);
                     if(!empty($query)){
                         while($row = $query->fetch_assoc()){
@@ -94,11 +96,12 @@
       </div>
     </section>   
 
+        <!-- printing report details -->
     <div class="details" style="display:none;">
         <?php include('../includes/appsettings.php') ?>
         <div style="text-align: center; text-transform: uppercase;">
           <h3><?php if(!empty($app['name'])) echo $app['name']; else echo 'Client Management System' ?></h3>
-          <p><b> Reports of Service Requests for <?php echo date('Y') ?></b></p>
+          <p><b> Reports - Service Requests for <?php echo date('Y') ?></b></p>
         </div>
      
     </div>

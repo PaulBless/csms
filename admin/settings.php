@@ -68,12 +68,12 @@
               <!-- <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-md btn-flat"><i class="fa fa-plus"></i> Add New User</a> -->
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered">
+              <table id="example1" class="table table-bordered hidden">
                 <thead class="bg-blue" style="color: black;">
                   <th>Name of District</th>
                   <th>Location</th>
                   <th>Logo</th>
-                  <th>Action</th>
+                  <th></th>
                 </thead>
                 <tbody>
                   <?php
@@ -84,8 +84,8 @@
                         $image = (!empty($row['logo'])) ? '../images/'.$row['logo'] : '../images/jecmas.png';
                         echo "
                             <tr>
-                            <td>".($row['name']) ."</td>
                             <td>".($row['location'])."</td>
+                            <td>".($row['name']) ."</td>
                             <td>
                                 <img src='".$image."' width='30px' height='30px' style='border-radius; 20%'>
                                 <a href='#edit_logo' data-toggle='modal' class='pull-right photo' data-id='".$row['id']."'><span class='fa fa-pencil'></span></a>
@@ -97,7 +97,8 @@
                             </tr>
                         ";
                         }
-                    } echo "<a href='#settings' data-toggle='modal' class='btn btn-primary btn-md btn-flat pull-right' style='margin: 10px;'>Config Settings </a>";
+                    } 
+                    echo "<a href='#settings' data-toggle='modal' class='btn btn-primary btn-md btn-flat' style=''>Config Settings </a> <hr>";
                   ?>
                 </tbody>
               </table>
@@ -182,6 +183,12 @@ function loading(){
       $('#preloader').fadeToggle('fast');
   }, 1500);
 }
+
+var loadFile = function(event){
+  var image = document.getElementById('#');
+  image.src= URL.createObjectURL(event.target.files[0]);
+};
+
 </script>
 </body>
 </html>

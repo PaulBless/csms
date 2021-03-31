@@ -1,7 +1,8 @@
 <?php include 'includes/conn.php'; ?>
 <?php include 'includes/sess.php'; ?>
 <?php include 'includes/header.php'; ?>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" onload="loading()">
+<div id="preloader"></div>
 <div class="wrapper">
 
   <?php include 'includes/navbar.php'; ?>
@@ -12,11 +13,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Statistics 
+       Statistics Reports : <span class="text-danger"><?php echo date('Y') ?></span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Statistics</li>
+        <li class="active">Current Statistics</li>
       </ol>
     </section>
 
@@ -49,7 +50,8 @@
     <!-- Statistics Start here -->
       <div class="row">
         <div class="col-xs-12">
-          <h3 > <span class="pull-right" style="margin-bottom: 15px;">
+          <h3> 
+          <span class="pull-right" style="margin-bottom: 15px;">
               <a href="print.php" class="btn btn-warning btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
             </span>
           </h3>
@@ -57,31 +59,28 @@
       </div>
 
       <?php
-        $sql = "SELECT * FROM `departments` ORDER BY `did` ASC";
+        $sql = "SELECT * FROM `enquiry_type` ORDER BY `etid` ASC";
         $query = $conn->query($sql);
-        $inc = 2;
         if(!empty($query)){
           while($row = $query->fetch_assoc()){
-            // $inc = ($inc == 2) ? 1 : $inc+1; 
-            // if($inc == 1) echo "<div class='row'>";
+            echo "<div class='row'>";
             echo "
-              <div class='col-sm-6'>
+              <div class='col-sm-12'>
                 <div class='box box-solid'>
                   <div class='box-header with-border'>
-                    <h4 class='box-title'><b>".$row['dept_name']."</b></h4>
+                    <h4 class='box-title'><b>".$row['name']."</b></h4>
                   </div>
                   <div class='box-body'>
                     <div class='chart'>
-                      <canvas id='".($row['dept_name'])."' style='height:200px'></canvas>
+                      <canvas id='".($row['name'])."' style='height:250px'></canvas>
                     </div>
                   </div>
                 </div>
               </div>
             ";
-            // if($inc == 2) echo "</div>";  
+            echo "</div>";  
           }
         }
-        // if($inc == 1) echo "<div class='col-sm-6'></div></div>";
       ?>
 
       </section>
@@ -93,18 +92,29 @@
 <!-- ./wrapper -->
 
 <?php include 'includes/scripts.php'; ?>
+
+<script>
+function loading(){
+  $('#preloader').show();
+    setTimeout(function(){
+      $('#preloader').fadeToggle('fast');
+  }, 1500);
+}
+</script>
+
 <?php
-  $sql = "SELECT * FROM `departments` ORDER BY `did` ASC";
+  $sql = "SELECT * FROM `enquiry_type` ORDER BY `etid` ASC";
   $query = $conn->query($sql);
   if(!empty($query)){
   while($row = $query->fetch_assoc()){
-    $sql = "SELECT * FROM `enquiry_type`";
+    $sql = "SELECT * FROM `departments`";
     $cquery = $conn->query($sql);
     $darray = array();
     $earray = array();
     while($crow = $cquery->fetch_assoc()){
-      array_push($darray, $crow['name']);
-      $sql = "SELECT * FROM `enquiries` WHERE et_id='".$crow['etid']."'";
+      array_push($darray, $crow['dept_name']);
+      $curr_year = date('Y');
+      $sql = "SELECT * FROM `enquiries` WHERE dept_id = '".$crow['did']."' AND et_id='".$row['etid']."' AND Year(created_on)='".$curr_year."'";
       $equery = $conn->query($sql);
       array_push($earray, $equery->num_rows);
     }
@@ -113,8 +123,8 @@
     ?>
     <script>
     $(function(){
-      var rowid = '<?php echo $row['did']; ?>';
-      var description = '<?php echo ($row['_deptname']); ?>';
+      var rowid = '<?php echo $row['etid']; ?>';
+      var description = '<?php echo ($row['name']); ?>';
       var barChartCanvas = $('#'+description).get(0).getContext('2d')
       var barChart = new Chart(barChartCanvas)
       var barChartData = {

@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label for="photo" class="col-sm-3 control-label">Photo</label>
                     <div class="col-sm-8">
-                      <input type="file" id="photo" name="photo">
+                      <input type="file" id="photo" name="photo" accept=".jpg, .png, .jpeg, .bmp, |image/*">
                     </div>
                 </div>
             
@@ -184,10 +184,8 @@
                 <div class="form-group">
                     <label for="photo" class="col-sm-2 control-label">Photo</label>
                     <div class="col-sm-8">
-                      <input type="file" id="photo" name="photo" required>
-                      <!-- <input type="file" class="custom-file-input" id="customFile" name="photo" onchange="displayImg(this,$(this))" required> -->
+                      <input type="file" id="photo" name="photo" accept=".jpg, .png, .jpeg, .bmp, |image/*" required>
                     </div>
-                    <!-- <img src="" alt="pic" class="col-sm-2 img-fluid" height="50" width="50" style="border-radius: 50%;"> -->
                 </div>
             </div>
             <div class="modal-footer">
