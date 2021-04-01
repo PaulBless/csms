@@ -16,7 +16,7 @@
 		if($run->num_rows == 0){
 			$sql = "INSERT INTO `departments` (`dept_name`, `description`, `created_on`) VALUES ('$deptname', '$description',NULL)";
 			if($conn->query($sql) == TRUE){ // if department added
-			$_SESSION['success'] = 'Department added sucessfully';
+			$_SESSION['success'] = 'Department '."$deptname".' added successfully';
 			}
 			else{
 				$_SESSION['error'] = $conn->error;

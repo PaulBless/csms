@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label for="photo" class="col-sm-3 control-label">Photo</label>
                     <div class="col-sm-8">
-                      <input type="file" id="photo" name="photo" accept=".jpg, .png, .jpeg, .bmp, |image/*">
+                      <input type="file" id="photo" name="photo" accept=".jpg, .png, .jpeg, .bmp |image/*">
                     </div>
                 </div>
             
@@ -66,11 +66,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="color: #3c8dbc">
-
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Edit User Profile</b></h4>
             </div>
+
             <div class="modal-body">
               <form class="form-horizontal" method="POST" action="user_edit.php" enctype="">
                 <input type="hidden" class="id" name="id" id="userid">
@@ -173,20 +173,27 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="color: #3c8dbc">
-
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b><span class="fullname"></span></b></h4>
             </div>
+
             <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="candidates_photo.php" enctype="multipart/form-data">
-                <input type="hidden" class="id" name="id">
+              <form class="form-horizontal" method="POST" action="users_photo.php" enctype="multipart/form-data">
+                <input type="hidden" class="id" name="id" value="">
                 <div class="form-group">
                     <label for="photo" class="col-sm-2 control-label">Photo</label>
-                    <div class="col-sm-8">
-                      <input type="file" id="photo" name="photo" accept=".jpg, .png, .jpeg, .bmp, |image/*" required>
+                    <div class="col-sm-7">
+                      <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .png, .jpeg, .bmp, |image/*" onclick="displayImg(this,$(this))" required> 
                     </div>
                 </div>
+                
+                <div class="form-group text-center ">
+                  <div class="col-sm-10"> 
+                    <img src="" id="output" alt="" height="50" width="50" style="border-radius: 50px; border: 1px solid #123;">
+                  </div>
+                </div>
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>

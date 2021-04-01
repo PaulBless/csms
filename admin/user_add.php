@@ -25,7 +25,6 @@
 
 		//generate random password
 		$setpass = '0123456789';
-		// $setpass = 'password';
 		$random_pass = substr(str_shuffle($setpass), 0, 5);
 		$password_encrypt = password_hash($random_pass, PASSWORD_DEFAULT); // hash password
 

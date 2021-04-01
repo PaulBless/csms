@@ -10,31 +10,26 @@
 		$return = 'homepage.php';
 	}
 
-	// get logged user id
-    $userid = "";
-    if(isset($_SESSION['user']))
-        $userid = $_SESSION['user'];
-        $sql = "SELECT `password` FROM `users` WHERE `uid`=$userid";
-        $run = mysqli_query($conn, $sql);
-        $user_password = mysqli_fetch_assoc($run);
-
+	
 	if(isset($_POST['change_pass'])){
 		// clean inputs
-		$current_pwd = trim(htmlspecialchars($_POST['curr_password']));
+		$current_pwd = ($_POST['curr_password']);
 		$new_pwd = trim(htmlspecialchars($_POST['new_password']));
 		$new_pwd2 = trim(htmlspecialchars($_POST['new_password2']));
-		$users_id = trim(htmlspecialchars($_POST['userid']));
+		$users_id = ($_POST['userid']);
+		$users_pass = ($_POST['upass']);
 
         
-        if(password_verify($_POST['curr_password'], $user_password['password']))
+        if(password_verify($current_pwd, $users_pass))
         {                
             // hash the password
             $hash_pwd = password_hash($new_pwd, PASSWORD_DEFAULT);
 
-                $sql = "UPDATE `users` SET `password` = '$hash_pwd' WHERE `uid` = '$userid'";
+                $sql = "UPDATE `users` SET `password` = '$hash_pwd' WHERE `uid` = '$users_id'";
                 if($conn->query($sql)){
-                    $msg = 'Password change successfully. You will be required to login again';
-                    echo "<script>alert('$msg'); window.location.href='index.php'</script>";
+                    // $msg = 'Password change successfully. You must login again';
+                    // echo "<script>alert('".$msg."'); window.location.href='index.php'</script>";
+                    $_SESSION['success'] = 'Password successfully changed, you must login again. New Password : '.$new_pwd.'';
                 }
                 else{
                         $_SESSION['error'] = $conn->error;
@@ -42,8 +37,7 @@
 
 	    }
         else{
-            // echo "<script>alert('incorrect current password')</script>";
-            $_SESSION['error'] = 'your current password incorrect';
+            $_SESSION['error'] = 'your current password is incorrect';
             }
     }
         

@@ -9,7 +9,8 @@
           	</div>
           	<div class="modal-body">
             	<form class="form-horizontal" method="POST" action="change_password.php?return=<?php echo basename($_SERVER['PHP_SELF']); ?>" >
-          		   <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['user'] ?>">
+          		   <input type="hidden" name="userid" id="userid" value="<?php echo $user['uid'] ?>">
+          		   <input type="hidden" name="upass" id="upass" value="<?php echo $user['password'] ?>">
 
 					 <div class="form-group">
                     <label for="curr_password" class="col-sm-3 control-label">Current Password:</label>

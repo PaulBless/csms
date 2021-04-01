@@ -13,7 +13,7 @@
 		if($run->num_rows == 0){
 		$sql = "INSERT INTO `locations` (loc_name, created_on) VALUES ('$location_name', CURRENT_TIMESTAMP)";
 		if($conn->query($sql)){
-			$_SESSION['success'] = 'New location added';
+			$_SESSION['success'] = 'New location '."$location_name".' added';
 		}
 		else{
 			$_SESSION['error'] = $conn->error;

@@ -1,5 +1,6 @@
 <?php
-	include 'includes/session.php';
+    session_start();
+	include 'includes/conn.php';
 
 	if(isset($_POST['upload'])){
 		$id = $_POST['id'];
@@ -8,9 +9,9 @@
 			move_uploaded_file($_FILES['photo']['tmp_name'], '../images/'.$filename);	
 		}
 		
-		$sql = "UPDATE candidates SET photo = '$filename' WHERE id = '$id'";
+		$sql = "UPDATE `users` SET `photo` = '$filename' WHERE `uid` = '$id'";
 		if($conn->query($sql)){
-			$_SESSION['success'] = 'Photo updated successfully';
+			$_SESSION['success'] = 'Photo successfully updated ';
 		}
 		else{
 			$_SESSION['error'] = $conn->error;
@@ -18,8 +19,8 @@
 
 	}
 	else{
-		$_SESSION['error'] = 'Select candidate to update photo first';
+		$_SESSION['error'] = 'Select user to update photo first';
 	}
 
-	header('location: candidates.php');
+	header('location: userlist.php');
 ?>

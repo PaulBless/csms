@@ -15,7 +15,7 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header"> MAIN MENU</li>
       <li class="" style="font-weight: bold;"> <a href="home.php"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> </a></li>
-      <li class="" style="font-weight: bold;"><a href="settings.php" ><i class="fa fa-cogs"></i> <span>System Settings</span></a></li>
+      <li class="" style="font-weight: bold;"><a href="system-settings.php" ><i class="fa fa-cogs"></i> <span>System Settings</span></a></li>
 
       <li class="header">ACTION</li>
       <li class="" style="font-weight: bold;"><a href="departments.php" ><i class="fa fa-tags"></i> <span>Departments</span></a></li>
@@ -29,7 +29,7 @@
       
       <li class="header">REPORTS VIEW</li>
       <li class="" style="font-weight: bold;"><a href="current-enquiries.php"><span class="glyphicon glyphicon-retweet"></span> <span>Current Service Requests</span></a></li>
-      <li class="" style="font-weight: bold;"><a href="complaints.php"><span class="glyphicon glyphicon-bookmark"></span> <span>Service Types List</span></a></li>
+      <li class="" style="font-weight: bold;"><a href="service-types-list.php"><span class="glyphicon glyphicon-bookmark"></span> <span>Service Types List</span></a></li>
       <li class="" style="font-weight: bold;"><a href="statistics.php"><span class="fa fa-bar-chart"></span> <span> Statistics </span></a></li>
       <li class="" style="font-weight: bold;"><a href="departments-visited-most.php"><span class="fa fa-codepen"></span> <span>Most Visited Departments </span></a></li>
       <li class="" style="font-weight: bold;"><a href="service-request-reasons.php"><span class="glyphicon glyphicon-link"></span> <span>Reasons for Visits </span></a></li>

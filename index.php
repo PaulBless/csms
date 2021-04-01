@@ -27,9 +27,9 @@
   	<div class="login-logo" style="margin-bottom: 3px;">
 		  <div class="row">
 			  <div class="col-lg-12">
-				<img src="<?php echo (!empty($app['logo'])) ? '../images/'.$app['logo'] : './images/jecmas.png'; ?>" height="65" width="65" alt="" style="border-radius: 50%; "><br>
-				 	<b class="text-uppercase text-success" style="font-size: 20px;"><?php echo (!empty($app['name'])) ? $app['name'] : 'jecmas technologies, ghana'; ?> </b>
-			  		<p style="font-size: 18px; font-weight: bold">Client Management System - Login</p>
+				<img src="<?php echo (!empty($app['logo'])) ? 'images/'.$app['logo'] : 'images/img.png'; ?>" height="65" width="65" alt="" style="border-radius: 50%; "><br>
+				 	<b class="text-uppercase" style="font-size: 20px; color: #252525;"><?php echo (!empty($app['name'])) ? $app['name'] : 'jecmas technologies'; ?> </b>
+			  		<p style="font-size: 18px; font-weight: bold; color: #777 !important;">Client Services Management System - Login</p>
 				</div>
 		  </div>
   	</div>
@@ -52,7 +52,7 @@
         		</div>
       		</div>
 			  <div class="row text-center" style="padding-top: 8px; ">
-					<a href="" data-toggle="modal" data-target="#forgetpwd" class="forget">Forgot Password</a>
+				Forgotten your password? <a href="" data-toggle="modal" data-target="#forgetpwd" class="forget">Reset</a>
 			  </div>
     	</form>
   	</div>
@@ -71,13 +71,12 @@
               <div class="text-center">
 
                 <form class="form-horizontal" method="POST" action="resetpassword.php">
-		
 					<div class="form-group">
-                  	<label for="firstname" class="col-sm-5 control-label">Enter username or password</label>
+                  	<label for="mobile_username" class="col-sm-5 control-label">Enter username or mobile no</label>
                   	<div class="col-sm-4">
                     	<input type="text" class="form-control" id="mobile_username" name="mobile_username" placeholder="Username Or Mobile No" required>
                   	</div>
-					  <button type="submit" class="col-sm-2 btn btn-primary" name="reset"> Submit </button>
+					  <button type="submit" class="col-sm-2 btn btn-primary btn-md btn-flat" name="reset"> Submit </button>
                 	</div>
          	</form>
        

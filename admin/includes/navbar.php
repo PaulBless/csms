@@ -17,16 +17,15 @@
       <ul class="nav navbar-nav">
       
         <!-- User Account: style can be found in dropdown.less -->
-        <li class="dropdown user user-menu">
+        <li class="dropdown user user-menu" style="border-left: 1px solid lightgrey">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="<?php echo (!empty($user['photo'])) ? '../images/'.$user['photo'] : '../images/profile.jpg'; ?>" class="user-image" alt="User Image">
             <span class="hidden-xs"><?php echo (!empty($user['firstname']) ." ". !empty($user['lastname'])) ? $user['firstname']. " ". $user['lastname'] : "Admin"; ?></span>
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="border: 1px solid #123">
             <!-- User image -->
             <li class="user-header">
               <img src="<?php echo (!empty($user['photo'])) ? '../images/'.$user['photo'] : '../images/profile.jpg'; ?>" class="img-circle" alt="User Image">
-
               <p>
                 <?php echo (!empty($user['firstname']) ." " . !empty($user['lastname'])) ? $user['firstname']. " ". $user['lastname'] : "No Name"; ?>
                 <small>Registered on <?php if(!empty($user['created_on'])) echo date('M, Y', strtotime($user['created_on'])); else echo date('M, Y', strtotime('2021-03-03')); ?></small>
@@ -34,7 +33,7 @@
             </li>
             <li class="user-footer">
               <div class="pull-left">
-                <a href="#profile" data-toggle="modal" class="btn btn-default btn-flat" id="admin_profile">Update</a>
+                <a href="#profile" data-toggle="modal" class="btn btn-default btn-flat" id="admin_profile" style="border: 1px solid black">Update</a>
               </div>
               <div class="pull-right">
                 <a href="logout.php" class="btn btn-danger btn-flat">Logout</a>

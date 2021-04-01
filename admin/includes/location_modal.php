@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label for="locname" class="col-sm-3 control-label">Location name:</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" id="location_name" name="loc_name" required>
+                      <input type="text" class="form-control" id="location_name" name="loc_name" autofocus required>
                     </div>
                 </div>
                

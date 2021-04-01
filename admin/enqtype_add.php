@@ -13,7 +13,7 @@
 		if($run->num_rows == 0){
 		$sql = "INSERT INTO `enquiry_type` (`name`, `comment`) VALUES ('$enqname', '$description')";
 			if($conn->query($sql)){
-				$_SESSION['success'] = 'New Service Type added';
+				$_SESSION['success'] = 'New service type '."$enqname".' added successfully';
 			}
 			else{
 				$_SESSION['error'] = $conn->error;

@@ -104,4 +104,20 @@ function startload(){
 });
 </script>
 
+<script>
+  $('[name="new_password"],[name="confirm_password"]').keyup(function(){
+      var pass = $('[name="new_password"]').val()
+      var cpass = $('[name="confirm_password"]').val()
+      if(cpass == '' || pass == ''){
+        $('#pass_match').attr('data-status','')
+      }else{
+        if(cpass == pass){
+          $('#pass_match').attr('data-status','1').html('<i class="text-success">Password Matched.</i>')
+        }else{
+          $('#pass_match').attr('data-status','2').html('<i class="text-danger">Password does not match.</i>')
+        }
+      }
+    })
+</script>
+
 

@@ -32,7 +32,7 @@
           <h3> 
           <a href="current-statistics.php" class="btn btn-primary btn-md btn-flat search-stats"> <i class="fa fa-bar-chart" style="margin-right: 3px"></i> View Current Statistics </a>
           <span class="pull-right" style="margin-bottom: 15px;">
-              <a href="print.php" class="btn btn-warning btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
+              <a href="print-stats.php" class="btn btn-warning btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
             </span>
           </h3>
         </div>
@@ -95,6 +95,7 @@ function loading(){
     while($crow = $cquery->fetch_assoc()){
       array_push($darray, $crow['dept_name']);
       $sql = "SELECT * FROM `enquiries` WHERE dept_id = '".$crow['did']."' AND et_id='".$row['etid']."'";
+      // $sql = "SELECT * FROM `enquiries` ";
       $equery = $conn->query($sql);
       array_push($earray, $equery->num_rows);
     }

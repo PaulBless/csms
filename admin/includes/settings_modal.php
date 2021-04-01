@@ -12,29 +12,30 @@
           		   <?php require_once('../includes/appsettings.php') ?>
                      <input type="text" name="id" id="id" class="form-control hidden" value="<?php if(!empty($app['id'])) echo $app['id']; ?>">
 
-					 <div class="form-group">
+					          <div class="form-group">
                     <label for="name" class="col-sm-3 control-label">Name of District:</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" id="dist_name" name="dist_name" placeholder="enter district name" value="<?php if(!empty($app['name'])) echo $app['name']; ?>" required>
                     </div>
                 	</div>  
                 
-					<div class="form-group">
-						<label for="location" class="col-sm-3 control-label">Location:</label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" id="dist_location" name="dist_location" placeholder="enter district location or town" value="<?php if(!empty($app['location'])) echo $app['location']; ?>" required>
-						</div>
-					</div>
+                <div class="form-group">
+                  <label for="location" class="col-sm-3 control-label">Location:</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control" id="dist_location" name="dist_location" placeholder="enter district location or town" value="<?php if(!empty($app['location'])) echo $app['location']; ?>" required>
+                  </div>
+                </div>
 
-					<div class="form-group">
-						<label for="logo" class="col-sm-3 control-label">Logo:</label>
-						<div class="col-sm-7"> 
-						<input type="file" class="form-control" id="logo" name="logo" accept=".jpg, .png, .jpeg, .bmp, |image/*" required>
-						</div>
-					</div>
+                <div class="form-group">
+                  <label for="logo" class="col-sm-3 control-label">Logo:</label>
+                  <div class="col-sm-7"> 
+                  <input type="file" class="form-control" id="logo" name="logo" accept=".jpg, .png, .jpeg, .bmp, |image/*" required>
+                  </div>
+                </div>
               
           	</div>
-          	<div class="modal-footer">
+          	
+            <div class="modal-footer">
             	<button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
             	<button type="submit" class="btn btn-primary btn-md btn-flat settings" name="save"> Save Settings</button>
             	</form>

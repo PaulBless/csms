@@ -185,12 +185,11 @@ $(function(){
 });
 
 
-
 function displayImg(input,_this) {
 	if (input.files && input.files[0]) {
 	  var reader = new FileReader();
 	  reader.onload = function (e) {
-	  $('#cimg').attr('src', e.target.result);
+	  $('#output').attr('src', e.target.result);
 	  }
 
 	reader.readAsDataURL(input.files[0]);
@@ -212,6 +211,7 @@ function getRow(id){
       $('#edit_usertype').val(response.user_type);
       $('#edit_mobile').val(response.mobileno);
       $('#edit_status').val(response.status);
+      // $('#output').src(response.photo);
       $('.fullname').html(response.firstname+' '+response.lastname);
     }
   });

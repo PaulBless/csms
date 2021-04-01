@@ -13,7 +13,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Reports : Departments Visited - <span class="text-danger">Classic View</span>
+       Reports : Departments Visited Most <?php echo date('Y') ?> - <span class="text-danger">Classic View</span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>

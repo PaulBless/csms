@@ -1,5 +1,5 @@
 <?php
-	include 'includes/session.php';
+	include 'includes/sess.php';
 
 	if(isset($_GET['return'])){
 		$return = $_GET['return'];
@@ -10,13 +10,17 @@
 	}
 
 	if(isset($_POST['save'])){
-		$curr_password = $_POST['curr_password'];
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-		$firstname = $_POST['firstname'];
-		$lastname = $_POST['lastname'];
+		$username =  trim(htmlspecialchars($_POST['username']));
+		$mobileno =  trim(htmlspecialchars($_POST['mobileno']));
+		$firstname = trim(htmlspecialchars($_POST['firstname']));
+		$lastname =  trim(htmlspecialchars($_POST['lastname']));
+		$user_fname =  ucfirst($firstname);
+		$user_lname =  ucwords($lastname);
 		$photo = $_FILES['photo']['name'];
-		if(password_verify($curr_password, $user['password'])){
+		$selected_uid = $_POST['selected_id'];
+
+		
+		if(isset($_POST['username']) && isset($_POST['mobileno']) && isset($_POST['firstname']) && isset($_POST['lastname'])){
 			if(!empty($photo)){
 				move_uploaded_file($_FILES['photo']['tmp_name'], '../images/'.$photo);
 				$filename = $photo;	
@@ -25,16 +29,10 @@
 				$filename = $user['photo'];
 			}
 
-			if($password == $user['password']){
-				$password = $user['password'];
-			}
-			else{
-				$password = password_hash($password, PASSWORD_DEFAULT);
-			}
-
-			$sql = "UPDATE admin SET username = '$username', password = '$password', firstname = '$firstname', lastname = '$lastname', photo = '$filename' WHERE id = '".$user['id']."'";
+			// query update 
+			$sql = "UPDATE `users` SET `firstname`='$user_fname', `lastname`='$user_lname', `username` = '$username', `mobileno` = '$mobileno', photo = '$filename' WHERE `uid` = '$selected_uid'";
 			if($conn->query($sql)){
-				$_SESSION['success'] = 'Admin profile updated successfully';
+				$_SESSION['success'] = 'Profile updated successfully';
 			}
 			else{
 				$_SESSION['error'] = $conn->error;
@@ -42,7 +40,7 @@
 			
 		}
 		else{
-			$_SESSION['error'] = 'Incorrect password';
+			$_SESSION['error'] = 'Error.. Please specify required fields';
 		}
 	}
 	else{
