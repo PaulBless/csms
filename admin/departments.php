@@ -71,9 +71,10 @@
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered" width="">
-                <thead class="bg-blue" style="color: black;">
+                <thead class="bg-blue">
 
 
+                  <th >No.</th>
                   <th class="hidden"></th>
                   <th>Department</th>
                   <th>Description</th>
@@ -81,6 +82,7 @@
                 </thead>
                 <tbody>
                   <?php
+                  $cnt = 1;
                     $sql = "SELECT DISTINCT(`dept_name`), did as deptid, `description` FROM `departments`";
                     // $sql = "SELECT *, `departments`.`did` AS deptid FROM `departments` LEFT JOIN `sub_category` ON `sub_category`.`dept_id`=`departments`.`did` ORDER BY `departments`.`dept_name` ASC";
                     $query = $conn->query($sql);
@@ -88,6 +90,7 @@
                         while($row = $query->fetch_assoc()){
                         echo "
                             <tr>
+                            <td >$cnt</td>
                             <td class='hidden'></td>
                             <td>".$row['dept_name']."</td>
                             <td>".$row['description']."</td>
@@ -95,10 +98,11 @@
                             <td>
                             <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['deptid']."'><i class='fa fa-edit'></i> Edit</button>
                             <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['deptid']."' title='delete this department'><i class='fa fa-trash'></i> Delete</button>
-                            <button style='background: #123; color: #fff' class='btn btn-sm btn-flat' data-toggle='modal' data-target='#addsub' title='add new sub-unit to this department'><i class='fa fa-plus'></i> Add Sub Unit</button>
+                            <button style='background: #123; color: #fff' class='btn btn-sm btn-flat' data-toggle='modal' data-target='#addsub' id='add_sub_unit' data-id='".$row['deptid']."' title='add new sub-unit to this department'><i class='fa fa-plus'></i> Add Sub Unit</button>
                             </td>
                             </tr>
                         ";
+                        $cnt += 1;
                         }
                     } 
                   ?>
@@ -173,7 +177,13 @@ $(function(){
     //   return false;
 
     //   getUnit(id);
-   });
+   
+  });
+
+  
+  $(document).on('click', '#add_sub_unit', function(e){
+
+  });
 
 
 });

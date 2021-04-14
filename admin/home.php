@@ -14,7 +14,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      <?php echo (!empty($app['name'])) ? $app['name'] : 'Client Management System for MMDA`s'; ?>
+      <?php echo (!empty($app['name'])) ? $app['name'] : 'Client Services Management System for MMDA`s'; ?>
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>

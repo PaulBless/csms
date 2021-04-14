@@ -19,11 +19,12 @@
 		$users_id = ($_POST['userid']);
 		$users_pass = ($_POST['upass']);
 
-        
+	
         if(password_verify($current_pwd, $users_pass))
         {                
             // hash the password
             $hash_pwd = password_hash($new_pwd, PASSWORD_DEFAULT);
+
 
                 $sql = "UPDATE `users` SET `password` = '$hash_pwd' WHERE `uid` = '$users_id'";
                 if($conn->query($sql)){

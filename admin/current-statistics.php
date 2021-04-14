@@ -52,7 +52,7 @@
         <div class="col-xs-12">
           <h3> 
           <span class="pull-right" style="margin-bottom: 15px;">
-              <a href="print.php" class="btn btn-warning btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
+              <a href="print-stats-current.php" class="btn btn-warning btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
             </span>
           </h3>
         </div>

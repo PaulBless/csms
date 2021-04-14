@@ -60,7 +60,7 @@
     <div class="row ">
         <div class="col-xs-12">
 
-          <div class='col-sm-6'>
+          <div class='col-sm-8'>
                 <div class='box box-solid'>
                   <div class='box-header with-border'>
                     <h4 class='box-title'><b>Settings</b></h4>

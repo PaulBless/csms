@@ -141,8 +141,10 @@
                     <div class="col-sm-7">
                         <select name="department" id="department" class="form-control" required>
                         
-                        <option value="">Select</option>
+                        <option value="" disabled selected hidden>Select</option>
                             <?php
+                            
+                            $deptid = '';
                               $sql = "SELECT * FROM `departments` ORDER BY `dept_name` ASC";
                               $query = $conn->query($sql);
                               if(!empty($query)){
@@ -225,7 +227,7 @@
                       <?php 
                         include 'includes/conn.php';
                           // $sql = "SELECT * FROM `sub_category` ";
-                          $sql = "SELECT *, departments.did AS id FROM `departments` LEFT JOIN `sub_category` ON `sub_category`.`dept_id`=`departments`.`did` ORDER BY `departments`.`dept_name` ASC";
+                          $sql = "SELECT  *, departments.did AS id FROM `departments` LEFT JOIN `sub_category` ON `sub_category`.`dept_id`=`departments`.`did` ORDER BY `departments`.`dept_name` ASC";
                           $scquery = $conn->query($sql);
                           if($scquery ->num_rows > 0){
                             while($scrow = $scquery->fetch_assoc())
@@ -242,7 +244,7 @@
                         <?php if($scrow['sub_dept_name'] != ""): ?>
                         <a href="subunit_delete.php?id=<?php echo $scrow['sub_dept_name']; ?>" onclick="return confirm('sure you want to delete sub category: <?php echo htmlentities($scrow['sub_dept_name']) ?>?')" class="btn btn-danger btn-sm "> <span class="fa fa-trash"></span> Delete</a>                        </tr>
                               <?php else: ?>
-                        <a href="#" title="no record found" onclick="return confirm('No record of sub category exist under <?php echo htmlentities($scrow['dept_name']) ?> department')" class="btn btn-warning btn-sm"> <span class="fa fa-lock"></span> Delete</a>
+                        <a href="#" title="no record found" onclick="return confirm('No record of sub category exist under <?php echo htmlentities($scrow['dept_name']) ?> department. Cannot proceed delete action..')" class="btn btn-warning btn-sm disabled"> <span class="fa fa-lock"></span> Delete</a>
                       <?php endif; ?> 
                         <?php
                               }

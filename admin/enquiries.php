@@ -73,7 +73,7 @@
                   <th>Department</th>
                   <th>Client Name</th>
                   <th>Service ID</th>
-                  <th>Visit Reason / Service Details</th>
+                  <th>Service Details/Reason</th>
                   <th>Entry By</th>
                   <th>Date Created</th>
                   <th>Action</th>

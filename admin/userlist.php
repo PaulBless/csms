@@ -68,9 +68,9 @@
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered">
-                <thead class="bg-blue" style="color: black;">
+                <thead class="bg-blue" >
 
-
+                  <th>No.</th>
                   <th>Lastname</th>
                   <th>Firstname</th>
                   <th>Mobile #</th>
@@ -83,6 +83,7 @@
                 </thead>
                 <tbody>
                   <?php
+                    $cnt = 1;
                     $sql = "SELECT * FROM `users`";
                     $query = $conn->query($sql);
                     if(!empty($query)){
@@ -90,6 +91,7 @@
                         $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/profile.jpg';
                         echo "
                             <tr>
+                            <td>".($cnt) ."</td>
                             <td>".($row['lastname']) ."</td>
                             <td>".($row['firstname'])."</td>
                             <td>".($row['mobileno'])."</td>
@@ -107,6 +109,7 @@
                             </td>
                             </tr>
                         ";
+                        $cnt += 1;
                         }
                     }
                   ?>

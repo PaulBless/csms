@@ -36,7 +36,7 @@
                     <label for="usertype" class="col-sm-3 control-label">User Type <span class="text-danger">*</span></label>
                     <div class="col-sm-8">
                       <select class="form-control" id="usertype" name="usertype" required>
-                        <option value="">Select</option>
+                        <option value="" disabled selected hidden>Select</option>
                         <option value="Admin">System Admin</option>
                         <option value="User">Normal User</option>
                       </select>
@@ -113,7 +113,7 @@
                     <label for="edit_usertype" class="col-sm-3 control-label">User Type <span class="text-danger">*</span> </label>
                     <div class="col-sm-8">
                       <select class="form-control" id="edit_usertype" name="edit_usertype" required>
-                        <option value="">Select</option>
+                        <option value="" disabled selected hidden>Select</option>
                         <option value="Admin">System Admin</option>
                         <option value="User">Normal User</option>
                       </select>
@@ -124,7 +124,7 @@
                     <label for="edit_status" class="col-sm-3 control-label">User Status <span class="text-danger">*</span></label>
                     <div class="col-sm-8">
                       <select class="form-control" id="edit_status" name="edit_status" required>
-                        <option value="">Select</option>
+                        <option value="" disabled selected hidden>Select</option>
                         <option value="Locked">Locked</option>
                         <option value="Active">Active</option>
                       </select>
@@ -155,13 +155,13 @@
               <form class="form-horizontal" method="POST" action="user_delete.php">
                 <input type="hidden" class="id" name="id" id="userid">
                 <div class="text-center">
-                    <p>DELETE USER</p>
+                    <p>ARE YOU SURE YOU WANT TO DELETE USER?</p>
                     <h2 class="bold fullname"></h2>
                 </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-              <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Delete</button>
+              <button type="submit" class="btn btn-danger btn-flat" name="delete"><i class="fa fa-trash"></i> Yes, Delete</button>
               </form>
             </div>
         </div>

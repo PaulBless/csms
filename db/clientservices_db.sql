@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `enquiries` (
   `user_id` int(11) NOT NULL, -- user_id foreign key
   `reason` varchar(1500) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `enquiryid` varchar(20) NOT NULL,
+  `enquiryid` varchar(20) NOT NULL, -- unique enquiryID
   `sub_unit_id` int(11) NOT NULL, -- sub category_id foreign key
   PRIMARY KEY (`eid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;

@@ -25,7 +25,7 @@
 		$firstname = ucfirst($fname);
 		$lastname = ucwords($lname);		
     
-		$sql = "UPDATE `users` SET firstname = '$firstname', lastname = '$lastname', `mobileno` = '$mobile', `username` = '$username' WHERE `uid` = '$userid'";
+		$sql = "UPDATE `users` SET `firstname` = '$firstname', `lastname` = '$lastname', `mobileno` = '$mobile', `username` = '$username' WHERE `uid` = '$userid'";
 		if($conn->query($sql)){
 				$_SESSION['success'] = 'Profile updated successfully';
 		}
