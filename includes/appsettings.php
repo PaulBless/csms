@@ -6,6 +6,5 @@
 	$query = $conn->query($sql);
 	$app = $query->fetch_assoc();
 
-	
 
 ?>

@@ -18,7 +18,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Settings</li>
       </ol>
     </section>
 

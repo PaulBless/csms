@@ -1,12 +1,23 @@
--- Written By: Paul Eshun
+-- AUTHOR DETAILS
+-- Name: Paul Eshun
 -- Role: Web & Software Developer
 -- Email: eshunbless1@gmail.com
--- Linkedin: https://linkedin.com/in/paul-eshun
+-- Linkedin Profile: https://linkedin.com/in/paul-eshun
 
 
 -- Description: Database Script for Client Service Management System
 -- Client: MMDA's
 -- Case Study: Upper West Akim District Assembly, Adeiso
+
+
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 15, 2021 at 03:19 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.10
 
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -22,7 +33,14 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `clientservices_db`
---
+-- --------------------------------------------
+
+-- Create Database
+CREATE DATABASE IF NOT EXISTS `clientservices_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+-- Choose or Select the Database 
+USE `clientservices_db`;
+
 
 -- --------------------------------------------------------
 -- Table structure for table `users`
@@ -39,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `users`(
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
-
+  -- ---------------------------------------------------------
 
 -- Table structure for table `client`
 CREATE TABLE IF NOT EXISTS `clients`(
@@ -64,7 +82,6 @@ CREATE TABLE IF NOT EXISTS `locations`(
 
 -- -----------------------------------------------------------------
 
-
 -- Table structure for table `enquiry_types`
 CREATE TABLE IF NOT EXISTS `enquiry_type`(
   `etid` int(11) NOT NULL AUTO_INCREMENT,
@@ -74,7 +91,6 @@ CREATE TABLE IF NOT EXISTS `enquiry_type`(
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- -----------------------------------------------------
-
 
 -- Table structure for table `enquiries`
 CREATE TABLE IF NOT EXISTS `enquiries` (
@@ -123,31 +139,10 @@ CREATE TABLE IF NOT EXISTS `settings` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 
--- ------------------------------------------------------------
+-- DUMP DATA INTO TABLES
+-- insert records into users table
+INSERT INTO `users` (`uid`, `firstname`, `lastname`, `mobileno`, `username`, `password`, `user_type`, `status`, `photo`, `created_on`) VALUES
+(NULL, 'System', 'Administrator', '0555428455', '@admin', '$2y$10$gbQQrEYu6TGrrnK9StUyseDowSet3A82ZvN/N83gez8HxpHgj6kgy', 'Admin', 'Active', 'profile.jpg', '2021-03-03 11:11:11');
 
---  SET TABLE CONTSTRAINTS & INDEXES ------------------------
-
--- Table constraints for clients
---- Set key pairs
-ALTER TABLE `clients`
- ADD KEY `location_id` (`location_id`),
-
-  -- Table constraints for enquiries
-  -- Set key pairs
-ALTER TABLE `enquiries`
- ADD KEY `et_id` (`et_id`),
-  ADD KEY `dept_id` (`dept_id`);
-  ADD KEY `user_id` (`user_id`);
-  ADD KEY `client_id` (`client_id`);
-
--- Add Foreign key constraints
-ALTER TABLE `clients`
-  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`lid`);
-
--- Add foreign key constraints
-ALTER TABLE `enquiries`
-  ADD CONSTRAINT `enquiries_ibfk_1` FOREIGN KEY (`et_id`) REFERENCES `enquiry_type` (`etid`);
-  ADD CONSTRAINT `enquiries_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients` (`cid`);
-  ADD CONSTRAINT `enquiries_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`uid`);
-  ADD CONSTRAINT `enquiries_ibfk_4` FOREIGN KEY (`dept_id`) REFERENCES `departments` (`did`);
-
+-- insert records into settings table
+INSERT INTO `settings` (`id`, `name`, `location`, `logo`) VALUES (NULL, 'Jecmas Technologies', 'Ghana', 'jecmas.png');
